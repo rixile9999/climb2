@@ -44,3 +44,11 @@ base ESM2·Hie·ESM2cov 세 backbone에서 라벨-프리(freq/bloom-fit) vs 등�
 - **base ESM2(약):** 단백질 S1/S2가 노이즈(등가중 DMS 0.786). 라벨-프리가 이를 올바르게 ~0/음수로 낮추고 **CLIB-only(DMS 0.883)가 지배**. 모델이 CLIB로 환원. ✓(무해)
 - **Hie:** freq/bloom-fit이 grammar에 **음의 가중치**를 줘 DMS 0.837/0.861로 지도학습(0.907)보다 **악화**. 창발은 전 방법 ~0.5(무작위). ✗ **라벨-프리 실패.**
 - **결론:** "라벨-프리 ≈ 지도학습"은 **보편적이지 않고 backbone 의존적**. backbone 신호가 자연 빈도/적합도와 정렬될 때(ESM2cov)만 성립. 실무 권고: **CoVFit 백본인 ESM2cov + bloom-fit** 라벨-프리 가중치.
+
+## B6 — 앙상블 타깃 = 무개선 (종점) (`phaseB6_ensemble.py`)
+세 신호(빈도·Bloom·초기빈도) rank-sum 복합 타깃으로 적합 → 단일 최고를 못 넘음. DMS: ensemble 0.887 < bloom_fit 0.899. 최신기 C3는 전 방법 ~0.83 수렴(재가중 무관, 내재적 한계). → offset 연구와 동일하게 **복잡도 추가 무효 = 라벨-프리 최적화 종점**.
+
+## 종점 결론
+- **권장 라벨-프리 CLIMB = ESM2cov + bloom-fit (b0=0.285, b1=0.942), CLIB offset κ=1, t=0.01.** escape 라벨 0개로 지도학습급(DMS 0.899, 창발 0.898).
+- 정직성 검증: LOVO 5/5, 시계열 창발 proxy_early 0.899(>지도 0.894), 3신호 가중치 수렴.
+- 한계: backbone 의존(ESM2cov에서만 성립), 최신기(2022-06+) 이득 축소는 데이터/신호 한계.
