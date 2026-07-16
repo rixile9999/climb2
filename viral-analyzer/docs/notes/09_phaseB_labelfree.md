@@ -37,3 +37,10 @@ python scripts/phaseB3_dmsfree_plus.py  # LOVO 누출제거 + 다중 컷오프
 - **가중치 수렴:** 셋 다 grammar≫semantic으로 수렴(b0 0.19–0.29, b1 0.94–1.68). CLIB offset 고정.
 - **핵심:** **Bloom로 적합한 가중치(b0=0.285, b1=0.942)가 DMS 지도학습 가중치(0.268, 0.955)를 거의 복원**하고, 누출 없는 **DMS AUROC 0.899로 최고**(등가중 0.884, freq-fit 0.883). → 계통수 적합도가 기능적 escape의 최적 라벨-프리 프록시이며, escape 라벨 없이 지도학습급 가중치 도달.
 - 세 신호 모두 variant_avg(0.97 vs 등가중 0.93)·emergent_avg(0.90 vs 0.87)에서 등가중 상회.
+
+## B5 — 멀티백본 강건성 (`gen_backbone_dumps.py`, `phaseB5_multibackbone.py`)
+base ESM2·Hie·ESM2cov 세 backbone에서 라벨-프리(freq/bloom-fit) vs 등가중/CLIB-only/지도학습(DMS) 비교. 정직한 시험(DMS, 창발).
+- **ESM2cov(강·도메인적응):** bloom-fit(0.285,0.942)이 지도학습(0.268,0.955) 복원, DMS 0.899·창발 0.898로 지도학습과 동등. ✓
+- **base ESM2(약):** 단백질 S1/S2가 노이즈(등가중 DMS 0.786). 라벨-프리가 이를 올바르게 ~0/음수로 낮추고 **CLIB-only(DMS 0.883)가 지배**. 모델이 CLIB로 환원. ✓(무해)
+- **Hie:** freq/bloom-fit이 grammar에 **음의 가중치**를 줘 DMS 0.837/0.861로 지도학습(0.907)보다 **악화**. 창발은 전 방법 ~0.5(무작위). ✗ **라벨-프리 실패.**
+- **결론:** "라벨-프리 ≈ 지도학습"은 **보편적이지 않고 backbone 의존적**. backbone 신호가 자연 빈도/적합도와 정렬될 때(ESM2cov)만 성립. 실무 권고: **CoVFit 백본인 ESM2cov + bloom-fit** 라벨-프리 가중치.

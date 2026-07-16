@@ -1,0 +1,16 @@
+backbone,method,b0,b1,DMS_AUROC,emergent_AUROC
+base_ESM2,"equal(1,1)",1.0,1.0,0.7856,0.7556
+base_ESM2,CLIB_only,0.0,0.0,0.8833,0.8532
+base_ESM2,freq_fit,-0.127,0.545,0.8573,0.849
+base_ESM2,bloom_fit,-0.102,0.449,0.8631,0.8515
+base_ESM2,supervised_DMS,0.094,0.313,0.8804,0.848
+Hie,"equal(1,1)",1.0,1.0,0.8992,0.5323
+Hie,CLIB_only,0.0,0.0,0.8838,0.4825
+Hie,freq_fit,0.128,-0.315,0.8368,0.498
+Hie,bloom_fit,0.1,-0.193,0.8614,0.4955
+Hie,supervised_DMS,0.43,1.062,0.9071,0.4892
+ESM2cov,"equal(1,1)",1.0,1.0,0.884,0.8691
+ESM2cov,CLIB_only,0.0,0.0,0.8833,0.8532
+ESM2cov,freq_fit,0.191,1.543,0.8831,0.9005
+ESM2cov,bloom_fit,0.285,0.942,0.8985,0.8983
+ESM2cov,supervised_DMS,0.268,0.955,0.8976,0.8989
