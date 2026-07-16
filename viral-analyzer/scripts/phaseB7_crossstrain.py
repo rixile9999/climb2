@@ -29,7 +29,10 @@ import pandas as pd
 from scipy.optimize import minimize
 import analyzer as an
 
-STRAINS = ["WildType", "Alpha", "Beta", "Gamma", "Delta", "Omicron"]
+# Delta excluded: its reference spike carries ambiguous 'X' residues (pos 94,
+# 155-157) that truncate any single-mutant scan at pos 94 — the same data-
+# generation gap for which the offset research (Phase 6) also excluded Delta.
+STRAINS = ["WildType", "Alpha", "Beta", "Gamma", "Omicron"]
 BACKBONE = {  # strain -> registered ESM2cov result key
     "WildType": "SARS-CoV-2-WildType-ESM2cov-L1",
     "Alpha": "SARS-CoV-2-Alpha-ESM2cov-L1", "Beta": "SARS-CoV-2-Beta-ESM2cov-L1",

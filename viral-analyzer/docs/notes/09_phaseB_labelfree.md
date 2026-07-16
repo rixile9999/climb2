@@ -52,3 +52,10 @@ base ESM2·Hie·ESM2cov 세 backbone에서 라벨-프리(freq/bloom-fit) vs 등�
 - **권장 라벨-프리 CLIMB = ESM2cov + bloom-fit (b0=0.285, b1=0.942), CLIB offset κ=1, t=0.01.** escape 라벨 0개로 지도학습급(DMS 0.899, 창발 0.898).
 - 정직성 검증: LOVO 5/5, 시계열 창발 proxy_early 0.899(>지도 0.894), 3신호 가중치 수렴.
 - 한계: backbone 의존(ESM2cov에서만 성립), 최신기(2022-06+) 이득 축소는 데이터/신호 한계.
+
+## B7 — 강한 백본 cross-strain 전이 (flagship, `phaseB7_crossstrain.py`)
+지금까지 변이 strain엔 ESM2cov가 없어 못 풀던 #1 질문. 5개 clean strain(WT/Alpha/Beta/Gamma/Omicron; Delta는 참조서열 'X'로 pos94 절단 → Phase6와 동일 제외)에 ESM2cov 단일변이 feature를 생성 후 leave-one-strain-out 전이.
+- **protein_only 0.842** (Phase6 base ESM2 ~0.60) — 강한 백본은 단백질 신호가 **strain 간 전이됨**.
+- **protein+offset 0.890** > **CLIB_only 0.864** — 강한 백본이 CLIB 위에 전이 가능한 escape 신호를 **추가**.
+- CLIB_only 0.864 = Phase6와 동일(백본 무관, 재확인).
+- **결론:** Phase6의 "CLIB이 전이신호 대부분을 담당"은 **약한 백본 한정**이었다. 도메인적응 백본(=CoVFit 백본)은 strain 배경을 넘어 일반화되는 escape 표현을 학습했다 — 강한 백본의 cross-strain 가치를 처음으로 실증.
