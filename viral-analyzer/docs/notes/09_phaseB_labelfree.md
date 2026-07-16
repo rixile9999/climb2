@@ -31,3 +31,9 @@ python scripts/phaseB_labelfree.py      # 빈도프록시 적합 + escape 평가
 python scripts/phaseB2_dmsfree.py       # 시계열(A) + Bloom(B)
 python scripts/phaseB3_dmsfree_plus.py  # LOVO 누출제거 + 다중 컷오프
 ```
+
+## B4 — 교차신호 일반화 (`phaseB4_crosssignal.py`)
+3개 독립 통계신호(빈도·Bloom 적합도·시계열-초기)로 각각 b0·b1을 라벨-프리 적합 후 교차평가.
+- **가중치 수렴:** 셋 다 grammar≫semantic으로 수렴(b0 0.19–0.29, b1 0.94–1.68). CLIB offset 고정.
+- **핵심:** **Bloom로 적합한 가중치(b0=0.285, b1=0.942)가 DMS 지도학습 가중치(0.268, 0.955)를 거의 복원**하고, 누출 없는 **DMS AUROC 0.899로 최고**(등가중 0.884, freq-fit 0.883). → 계통수 적합도가 기능적 escape의 최적 라벨-프리 프록시이며, escape 라벨 없이 지도학습급 가중치 도달.
+- 세 신호 모두 variant_avg(0.97 vs 등가중 0.93)·emergent_avg(0.90 vs 0.87)에서 등가중 상회.
