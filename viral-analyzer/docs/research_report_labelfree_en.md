@@ -90,11 +90,23 @@ An ensemble target (rank-sum of frequency + Bloom + early-frequency) does **not*
 
 **Recommended label-free model:** `score = b0·S1 + b1·S2 + 1·CLIB(t=0.01)` with **(b0, b1) fit to Bloom phylogenetic fitness on the ESM2cov backbone → (0.285, 0.942)**. Supervised-quality escape ranking with **no escape labels**, validated by LOVO (5/5), temporal forecasting (0.899), and cross-signal convergence.
 
-**Open questions (data, not model):** recompute the strong ESM2cov backbone for the variant strains to test strong-backbone cross-strain transfer; per-lineage substitution signatures for a strain-specific CLIB; why the label-free advantage shrinks in the most recent era.
+## 9. Strong-backbone cross-strain transfer (Phase B7) — the flagship question, answered
+
+The offset research (Phase 6) could only test cross-strain transfer with the weak base ESM2, where the protein features transferred at AUROC ~0.60 (near-random), leading to the conclusion that "CLIB carries essentially all the transferable signal." Because ESM2cov existed only for WildType, the strong-backbone case was the #1 open question. We generated ESM2cov single-mutant features for the variant strains and ran leave-one-strain-out transfer over five clean strains (WT, Alpha, Beta, Gamma, Omicron; Delta excluded — its reference spike has ambiguous 'X' residues that truncate the scan at position 94, exactly as in Phase 6):
+
+| model | strong ESM2cov (this work) | weak base ESM2 (Phase 6) |
+|---|---|---|
+| protein-only | **0.842** | ~0.60 |
+| protein + offset | **0.890** | ~0.86 |
+| CLIB-only (no training) | 0.864 | ~0.864 |
+
+**The strong domain-adapted backbone — which is exactly CoVFit's backbone — transfers its escape representation across strains** (protein-only 0.842 vs 0.60), and **protein+offset (0.890) beats CLIB-only (0.864)**, meaning it adds transferable signal *on top of* CLIB. This **refines Phase 6's conclusion**: "CLIB carries essentially all the transfer" held only for the weak backbone; the domain-adapted PLM has learned an escape representation that generalizes across strain backgrounds. CLIB-only reproducing 0.864 (backbone-independent) is a clean internal consistency check.
+
+**Remaining open questions (data, not model):** per-lineage substitution signatures for a strain-specific CLIB; why the label-free advantage shrinks in the most recent era; regenerating a clean (X-free) Delta reference to complete the strain panel.
 
 ---
 
-## 9. Independent adversarial verification
+## 10. Independent adversarial verification
 
 The four headline claims (LOVO, temporal, Bloom-recovers-supervised, not-universal) were each re-checked by an independent skeptical reviewer that re-ran the scripts and scrutinized the methodology. All four: **numbers reproduce exactly**; verdict **confirmed with caveats**. The material caveats — already folded into this report — are: (i) the temporal "beats supervised" is within noise (a tie), only the equal-weight win is CI-supported and it is cutoff-dependent (not significant at the 2022-06 cutoff); (ii) LOVO's Gamma has n=1 (degenerate CI), and the bootstrap is positives-only; (iii) the DMS test rests on 19 positives, so its margins are high-variance — the weight recovery and larger-n results carry the claim; (iv) the Hie failure is robust because it rests on the **negative fitted grammar weight**, independent of any supervised comparison.
 
