@@ -1,2 +1,11 @@
 __pycache__/
 *.pyc
+
+# large binaries / external clones / scratch (climb-labelfree campaign)
+covfit_bench/models/
+covfit_bench/CoVFit_repo/
+covfit_bench/data/wt_single_mutants.fasta
+covfit_bench/results/covfit_singlemut/
+covfit_bench/logs/
+.qwen/
+*.pdf

@@ -1,0 +1,6 @@
+variant,b0,b1,A_emergent_meanrank,A_emergent_AUROC,B_bloom_spearman,B_bloom_hi_AUROC
+"A_equal(1,1)",1.0,1.0,3385.0,0.8603,0.1475,0.8499
+"CLIB_only(0,0)",0.0,0.0,3931.6,0.8361,-0.0293,0.8147
+proxy_full(freq),0.191,1.543,2461.0,0.8985,0.0818,0.8571
+proxy_early(freq<=2021),0.194,1.681,2458.3,0.8986,0.0818,0.8556
+supervised_on_DMS(ref),0.268,0.955,2572.5,0.8939,0.0963,0.8649

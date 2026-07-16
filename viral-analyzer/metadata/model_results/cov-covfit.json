@@ -1,0 +1,24 @@
+{
+    "SARS-CoV-2-WildType-ESM2cov-L1": {
+        "virus": "SARS-CoV-2",
+        "strain": "SARS-CoV-2-WildType",
+        "prefix": "esm2cov-l1",
+        "columns": ["pos", "wt", "mut", "prob", "change_l1"],
+        "path": "data/model_results/cov-wt/cov_esm2_coronaviridae.tsv"
+    },
+    "SARS-CoV-2-WildType-ESM2cov-L2": {
+        "virus": "SARS-CoV-2",
+        "strain": "SARS-CoV-2-WildType",
+        "prefix": "esm2cov-l2",
+        "columns": ["pos", "wt", "mut", "prob", "change_l2"],
+        "path": "data/model_results/cov-wt/cov_esm2_coronaviridae.tsv"
+    },
+    "SARS-CoV-2-WildType-CoVFit": {
+        "virus": "SARS-CoV-2",
+        "strain": "SARS-CoV-2-WildType",
+        "prefix": "covfit",
+        "description": "grammar = ESM2_coronaviridae masked prob; semantic = CoVFit mean DMS-escape over 1548 tasks",
+        "columns": ["pos", "wt", "mut", "prob", "change"],
+        "path": "data/model_results/cov-wt/cov_covfit.tsv"
+    }
+}
