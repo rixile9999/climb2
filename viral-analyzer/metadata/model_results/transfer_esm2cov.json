@@ -1,0 +1,27 @@
+{
+    "SARS-CoV-2-Alpha-ESM2cov-L1": {
+        "virus": "SARS-CoV-2", "strain": "SARS-CoV-2-Alpha", "prefix": "esm2cov-l1",
+        "columns": ["pos", "wt", "mut", "prob", "change_l1"],
+        "path": "data/model_results/transfer/cov_esm2cov_Alpha.tsv"
+    },
+    "SARS-CoV-2-Beta-ESM2cov-L1": {
+        "virus": "SARS-CoV-2", "strain": "SARS-CoV-2-Beta", "prefix": "esm2cov-l1",
+        "columns": ["pos", "wt", "mut", "prob", "change_l1"],
+        "path": "data/model_results/transfer/cov_esm2cov_Beta.tsv"
+    },
+    "SARS-CoV-2-Gamma-ESM2cov-L1": {
+        "virus": "SARS-CoV-2", "strain": "SARS-CoV-2-Gamma", "prefix": "esm2cov-l1",
+        "columns": ["pos", "wt", "mut", "prob", "change_l1"],
+        "path": "data/model_results/transfer/cov_esm2cov_Gamma.tsv"
+    },
+    "SARS-CoV-2-Delta-ESM2cov-L1": {
+        "virus": "SARS-CoV-2", "strain": "SARS-CoV-2-Delta", "prefix": "esm2cov-l1",
+        "columns": ["pos", "wt", "mut", "prob", "change_l1"],
+        "path": "data/model_results/transfer/cov_esm2cov_Delta.tsv"
+    },
+    "SARS-CoV-2-Omicron-ESM2cov-L1": {
+        "virus": "SARS-CoV-2", "strain": "SARS-CoV-2-Omicron", "prefix": "esm2cov-l1",
+        "columns": ["pos", "wt", "mut", "prob", "change_l1"],
+        "path": "data/model_results/transfer/cov_esm2cov_Omicron.tsv"
+    }
+}
