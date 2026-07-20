@@ -1,0 +1,198 @@
+<title>CLIMB — Extended Full Paper (Research Timeline, EN)</title>
+<style>
+  :root{
+    --bg:#F6F7F5;--surface:#FFFFFF;--surface-2:#EFF2EF;--ink:#14201C;--muted:#54655D;
+    --faint:#889690;--line:#DEE4E0;--accent:#126646;--accent-soft:#E4F0EA;
+    --a0:#7A6A4A;--a1:#146B4A;--a2:#2E7D5B;--a3:#B26A2E;--a4:#3F6FB0;--a5:#5B4B8A;
+    --serif:"Charter","Iowan Old Style","Iowan Old Style W01",Georgia,"Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0C1310;--surface:#131C18;--surface-2:#1A2420;--ink:#E8EEEA;--muted:#9BACA3;
+    --faint:#6B7C74;--line:#26332E;--accent:#54C193;--accent-soft:#13221B;
+    --a0:#C4AE82;--a1:#54C193;--a2:#57B98A;--a3:#D69152;--a4:#6E9FD9;--a5:#A99AD6;}}
+  :root[data-theme="dark"]{--bg:#0C1310;--surface:#131C18;--surface-2:#1A2420;--ink:#E8EEEA;--muted:#9BACA3;
+    --faint:#6B7C74;--line:#26332E;--accent:#54C193;--accent-soft:#13221B;--a0:#C4AE82;--a1:#54C193;--a2:#57B98A;--a3:#D69152;--a4:#6E9FD9;--a5:#A99AD6;}
+  :root[data-theme="light"]{--bg:#F6F7F5;--surface:#FFFFFF;--surface-2:#EFF2EF;--ink:#14201C;--muted:#54655D;
+    --faint:#889690;--line:#DEE4E0;--accent:#126646;--accent-soft:#E4F0EA;--a0:#7A6A4A;--a1:#146B4A;--a2:#2E7D5B;--a3:#B26A2E;--a4:#3F6FB0;--a5:#5B4B8A;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:840px;margin:0 auto;padding:clamp(28px,5vw,64px) clamp(18px,5vw,36px)}
+  h1{font-size:clamp(1.8rem,4.6vw,2.7rem);line-height:1.15;letter-spacing:-.015em;text-wrap:balance;margin:.1em 0 .25em;font-weight:600}
+  .lede{font-size:1.18rem;color:var(--muted);max-width:62ch;margin:.5em 0}
+  .sans{font-family:var(--sans)} .mono{font-family:var(--mono)}
+  .meta{display:flex;flex-wrap:wrap;gap:.5em 1.3em;margin-top:1.3em;font-family:var(--sans);font-size:.8rem;color:var(--faint)}
+  .meta b{color:var(--ink);font-weight:600}
+  .rule{height:1px;background:var(--line);border:0;margin:1.8em 0}
+  .era{font-family:var(--sans);font-weight:700;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
+    margin:2.4em 0 .2em;display:flex;align-items:center;gap:10px}
+  .era .dot{width:11px;height:11px;border-radius:50%}
+  .era .date{color:var(--faint);font-weight:600;letter-spacing:.04em}
+  .tl{position:relative;padding-left:34px;margin:0}
+  .tl::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:2px;background:var(--line)}
+  .node{position:relative;margin:16px 0}
+  .node::before{content:"";position:absolute;left:-28px;top:20px;width:13px;height:13px;border-radius:50%;
+    background:var(--surface);border:3px solid var(--nc,var(--accent))}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:18px 20px;
+    border-left:3px solid var(--nc,var(--accent))}
+  .card .q{font-family:var(--sans);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--nc,var(--accent));font-weight:600}
+  .card h3{margin:.25em 0 .1em;font-size:1.14rem;font-weight:600;line-height:1.25;text-wrap:balance}
+  .card p{margin:.45em 0;font-size:.98rem}
+  .find{background:var(--surface-2);border-radius:8px;padding:9px 13px;margin:.7em 0 .2em;font-size:.92rem}
+  .find b{color:var(--nc,var(--accent))}
+  .badges{display:flex;flex-wrap:wrap;gap:6px;margin:.6em 0 .2em}
+  .badge{font-family:var(--sans);font-size:.72rem;font-variant-numeric:tabular-nums;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:20px;padding:.15em .6em;color:var(--ink)}
+  .art{display:inline-flex;align-items:center;gap:8px;margin-top:.7em;font-family:var(--sans);font-size:.86rem;
+    font-weight:600;color:var(--nc,var(--accent));text-decoration:none;border:1px solid var(--line);
+    border-radius:8px;padding:7px 12px;background:var(--surface-2)}
+  .art:hover{border-color:var(--nc,var(--accent))}
+  .art .emo{font-size:1.05rem} .art .arrow{color:var(--faint);margin-left:2px}
+  .two{display:flex;gap:8px;flex-wrap:wrap}
+  .synth{background:var(--accent-soft);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:2em 0}
+  .synth .q{color:var(--accent)}
+  .thesis{font-family:var(--serif);font-size:1.05rem;line-height:1.6}
+  .thesis b{color:var(--accent)}
+  .foot{margin-top:2.4em;padding-top:1.2em;border-top:1px solid var(--line);font-family:var(--sans);font-size:.78rem;color:var(--faint)}
+  ul{padding-left:1.15em}li{margin:.3em 0}
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="sans" style="font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600">Extended full paper · research timeline</span>
+    <h1>CLIMB, from one question to the next</h1>
+    <p class="lede">Beginning with "can we build an honest escape score?", we set the coefficients without labels,
+      crossed strains, models, and species, and finally extended from single to multiple mutations. Each step answers a
+      question the previous one raised. Every node links to its detailed artifact.</p>
+    <div class="meta">
+      <span><b>Span</b> 2026-07-16 → 07-20</span>
+      <span><b>Model</b> score = b0·S₁ + b1·S₂ + κ·CLIB, κ=1</span>
+      <span><b>Linked artifacts</b> 10</span>
+      <span><b>Branch</b> research/climb-labelfree</span>
+    </div>
+  </header>
+
+  <hr class="rule">
+
+  <!-- ACT 0 -->
+  <div class="era"><span class="dot" style="background:var(--a0)"></span>Act 0 · Foundation <span class="date">— 2026-07-16</span></div>
+  <div class="tl">
+    <div class="node" style="--nc:var(--a0)">
+      <div class="card">
+        <div class="q">Question · How to combine three signals honestly</div>
+        <h3>Freezing CLIB as an offset</h3>
+        <p>Adding a nucleotide-accessibility prior (CLIB) to semantic + grammar is easy; fitting its coefficient to the
+          answer key is circular. We <b>freeze</b> CLIB at coefficient 1 and learn only b0, b1 — under honest nested CV.</p>
+        <div class="find"><b>Result:</b> κ=1 is optimal, removes ~30% in-sample optimism, lifts a weak backbone's DMS 0.53→0.85. Four complexity axes all fail — an endpoint.</div>
+        <div class="badges"><span class="badge">Phase 0–7</span><span class="badge">κ=1 · t=0.01</span><span class="badge">CLIB-only transfer 0.864</span></div>
+        <div class="two">
+          <a class="art" href="https://claude.ai/code/artifact/fa3ebd3f-bee4-463f-ab4e-81d9323402a9"><span class="emo">📓</span>Offset Research Journal (EN)<span class="arrow">→</span></a>
+          <a class="art" href="https://claude.ai/code/artifact/6642366a-35aa-4cc3-a705-94a090dafc9c"><span class="emo">📓</span>Offset Journal (KR)<span class="arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACT I -->
+  <div class="era"><span class="dot" style="background:var(--a1)"></span>Act I · Scoring & the label-free question <span class="date">— 07-20</span></div>
+  <div class="tl">
+    <div class="node" style="--nc:var(--a1)">
+      <div class="card">
+        <div class="q">Question · CoVFit, ESM, Hie on one scale</div>
+        <h3>The CoVFit × CAC benchmark</h3>
+        <p>Scoring the SARS-CoV-2 spike with CoVFit, ESM2, and CSCS, then applying CAC (the CLIB three-pole). The
+          domain-adapted backbone captures escape best.</p>
+        <div class="find"><b>Result:</b> adding the CLIB pole sharply improves escape ranking; the CoVFit family leads.</div>
+        <a class="art" href="https://claude.ai/code/artifact/78afa295-be57-4466-a957-089a115f76cc"><span class="emo">🧬</span>CoVFit × CAC results<span class="arrow">→</span></a>
+      </div>
+    </div>
+    <div class="node" style="--nc:var(--a1)">
+      <div class="card">
+        <div class="q">Question · How to set b0, b1 without DMS</div>
+        <h3>A label-free operating point — and the frequency proxy</h3>
+        <p>Optimization needs a target, so we first define the bias-free fixed point (z-score then <b>equal weight</b>).
+          Then we fit the coefficients to an escape-independent statistic — <b>observed substitution frequency</b>.</p>
+        <div class="find"><b>Result:</b> frequency-fit b0≈0.19, b1≈1.5 (grammar + CLIB heavy). But lineage tasks leak (frequency ↔ escape overlap) — the honest tests are DMS and temporal.</div>
+        <div class="two">
+          <a class="art" href="https://claude.ai/code/artifact/95f44afe-bc31-436b-8445-a76e76a3d12c"><span class="emo">⚖️</span>Label-free operating point (A)<span class="arrow">→</span></a>
+          <a class="art" href="https://claude.ai/code/artifact/a7f23139-690c-47ff-a139-fbbd5906a9ff"><span class="emo">📊</span>Frequency proxy — method & results (B)<span class="arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACT II -->
+  <div class="era"><span class="dot" style="background:var(--a2)"></span>Act II · Validating without labels</div>
+  <div class="tl">
+    <div class="node" style="--nc:var(--a2)">
+      <div class="card">
+        <div class="q">Question · How to judge performance without DMS</div>
+        <h3>DMS-free evaluation — temporal, de-leaking, phylogeny</h3>
+        <p>The future is genuinely held out. Fit only on pre-cutoff frequency and predict later emergence; re-evaluate with
+          each variant's own mutations removed (LOVO); cross-check against Bloom phylogenetic fitness.</p>
+        <div class="find"><b>Result:</b> emergence forecasting AUROC <b>0.899</b> (a tie with supervised); LOVO survives 5/5 — circularity refuted.</div>
+        <div class="badges"><span class="badge">temporal 0.899</span><span class="badge">LOVO 5/5</span><span class="badge">Bloom ~0.85</span></div>
+        <a class="art" href="https://claude.ai/code/artifact/447e04df-4984-4c20-9950-ba7352148cf1"><span class="emo">🔭</span>DMS-free evaluation<span class="arrow">→</span></a>
+      </div>
+    </div>
+    <div class="node" style="--nc:var(--a2)">
+      <div class="card">
+        <div class="q">Question · Can label-free reach supervised · how far does it hold</div>
+        <h3>Label-free synthesis — Bloom recovers the supervised weights</h3>
+        <p>Coefficients fit to Bloom phylogenetic fitness (0.285, 0.942) <b>recover</b> the DMS-supervised weights
+          (0.268, 0.955). The strong backbone transfers across strains (flagship). But it is backbone-dependent (general PLMs only).</p>
+        <div class="find"><b>Result:</b> supervised-quality with zero escape labels; cross-strain protein-only 0.60→0.842; escape signal is from domain adaptation, not size.</div>
+        <a class="art" href="https://claude.ai/code/artifact/23a355ec-f52d-4481-afa4-1755a8b4fef7"><span class="emo">🧭</span>Label-Free CLIMB — synthesis (capstone)<span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACT III -->
+  <div class="era"><span class="dot" style="background:var(--a3)"></span>Act III · The limits of the prior</div>
+  <div class="tl">
+    <div class="node" style="--nc:var(--a3)">
+      <div class="card">
+        <div class="q">Question · Does CLIB cross species</div>
+        <h3>CLIB does not cross species</h3>
+        <p>Extending to Influenza HA and HIV Env, CLIB is near-random. Not a codon-approximation artifact — confirmed with
+          real CDS (WSN HA J02176, BG505 Env DQ208458).</p>
+        <div class="find"><b>Result:</b> CLIB is SARS-specific (flu 0.50, HIV 0.58 vs SARS 0.883). The transferable component is the protein-LM signal, not CLIB.</div>
+        <a class="art" href="https://claude.ai/code/artifact/aaa212ae-c41d-4c5e-80a9-6d964e4af61b"><span class="emo">🦠</span>Cross-species universality test<span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACT IV -->
+  <div class="era"><span class="dot" style="background:var(--a4)"></span>Act IV · Point → Multi</div>
+  <div class="tl">
+    <div class="node" style="--nc:var(--a4)">
+      <div class="card">
+        <div class="q">Question · Why do old species fail · how to fix it</div>
+        <h3>From single to multiple mutations — a formal extension</h3>
+        <p>Hypothesis: escape in old, diverged species is combinatorial, not a single point mutation. We generalize each term
+          to a sum over a mutation set M, and let evolutionary time <b>t be the point↔multi knob</b>.</p>
+        <div class="find"><b>Result (evidence):</b> on Wu2020 combinatorial fitness the multi-CLIB↔fitness correlation rises with t (+0.206→+0.329). Multi-mutation semantic predicts H3N2 antigenic escape at <b>AUROC 0.769</b> (vs 0.60 single-mutation).</div>
+        <div class="badges"><span class="badge">t: 0.01→10</span><span class="badge">antigenic 0.769</span><span class="badge">signed CAC 0.447</span></div>
+        <a class="art" href="https://claude.ai/code/artifact/c6d5e4cf-846a-4e8c-af74-9ee3f5b8e738"><span class="emo">🧮</span>Point → Multi — formal extension<span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SYNTHESIS -->
+  <div class="synth">
+    <div class="q sans" style="font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700">Synthesis · into one paper</div>
+    <p class="thesis" style="margin:.5em 0">
+      <b>Honesty via the κ=1 offset</b> → <b>label-free coefficients & validation</b> → <b>the strong backbone transfers
+      across strains but CLIB is SARS-specific</b> → <b>old species need multi (large t), not point</b>. Every headline was
+      independently adversarially verified.</p>
+    <a class="art" style="--nc:var(--accent);margin-top:1em" href="https://claude.ai/code/artifact/ead6cdd7-c89f-4cef-8cf2-85e39447304f"><span class="emo">📄</span>CLIMB — Full Paper (canonical)<span class="arrow">→</span></a>
+  </div>
+
+  <h3 class="sans" style="font-size:.95rem;color:var(--muted);margin-top:2em">Suggested reading order</h3>
+  <p class="sans" style="font-size:.9rem;color:var(--muted)">
+    📓 Offset Journal → 🧬 CoVFit×CAC → ⚖️ Operating point → 📊 Frequency proxy → 🔭 DMS-free → 🧭 Label-free synthesis → 🦠 Cross-species → 🧮 Point→Multi → 📄 Full Paper</p>
+
+  <p class="foot">CLIMB extended full paper · a research timeline linking 10 artifacts · 2026-07-16 → 07-20 ·
+    canonical code/paper: branch research/climb-labelfree, viral-analyzer/docs/PAPER.md · issues #1 & #2</p>
+</div>
