@@ -66,3 +66,10 @@ Hie 제외, 범용 PLM만 시험(SARS 스파이크, DMS·창발).
 - **CLIB-only = 0.883 (전 모델 동일)** — backbone 무관 강한 **보편 베이스라인**. 모든 백본을 protein-only ~0.50에서 ~0.88로 끌어올림.
 - **label-free(bloom) ≈ supervised**: 150M gap +0.000, ESM2cov +0.001 성립 / 650M −0.017, 3B −0.053 미달(단백질 노이즈 → CLIB-only가 최선, 어떤 protein 가중도 그 이하).
 - **결론:** (1) **CLIB offset의 보편성 = 성립**(모든 범용 PLM). (2) "단백질 신호가 escape 담음 & 라벨-프리 지도학습급"은 **모델 일반성/크기가 아니라 도메인 적응 여부**의 문제 — ESM2cov(도메인적응)에서만. (3) 라벨-프리는 어떤 범용 PLM에서도 CLIB-only 근처 이하로 안전(크게 해롭지 않음).
+
+## B9 — 종간 CLIB 보편성 (Influenza HA, HIV Env) (`port_hie_species.py`, `phaseB9_species.py`)
+Hie 데이터(Doud2018 flu HA 170변이/41부위, Dingens2019 HIV Env 161변이/69부위) 포팅, base ESM2-650M, 5-fold CV.
+- **CLIB_only: flu 0.508, HIV 0.547 (거의 무작위)** — SARS의 0.883과 정반대. **CLIB offset 추가 시 악화**(flu 0.639→0.527, HIV 0.603→0.583). protein-only ESM2가 약하지만 최선(0.60~0.64).
+- **결정적 confound — modal-codon 근사**: SARS는 실제 codon(seq_cov_wt.csv), flu/HIV는 표준 modal-codon 역번역(Hie 전체 데이터도 AA-only, CDS 부재 확인). CLIB의 단일-염기 접근성은 codon에 민감하므로, 이 near-random이 (a)근사 아티팩트인지 (b)진짜 종 차이인지 실제 CDS 없이 분리 불가.
+- **결론:** **CLIB의 종간 보편성은 실증되지 않음** — SARS 특이적이거나 codon-정확도 의존일 수 있음. "보편적 메커니즘 prior" 프레이밍 약화. (반면 protein LM 신호는 flu/HIV에서 약하게라도 최선 → 단백질 신호 쪽이 오히려 더 종-이전적.)
+- **미해결**: 실제 WSN HA·BG505 Env CDS(GenBank)로 codon을 확정하면 confound 제거 가능.

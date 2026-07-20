@@ -1,0 +1,28 @@
+{
+  "Influenza-HA-WSN-ESM2-650M-L1": {
+    "virus": "Influenza A",
+    "strain": "Influenza-HA-WSN",
+    "prefix": "esm2-650m-l1",
+    "columns": [
+      "pos",
+      "wt",
+      "mut",
+      "prob",
+      "change_l1"
+    ],
+    "path": "data/model_results/species/flu_ha_esm2_650m.tsv"
+  },
+  "HIV-Env-BG505-ESM2-650M-L1": {
+    "virus": "HIV",
+    "strain": "HIV-Env-BG505",
+    "prefix": "esm2-650m-l1",
+    "columns": [
+      "pos",
+      "wt",
+      "mut",
+      "prob",
+      "change_l1"
+    ],
+    "path": "data/model_results/species/hiv_env_esm2_650m.tsv"
+  }
+}

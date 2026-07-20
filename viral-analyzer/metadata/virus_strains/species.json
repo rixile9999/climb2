@@ -1,0 +1,28 @@
+{
+  "Influenza-HA-WSN": {
+    "name": "Influenza-HA-WSN",
+    "description": "A/WSN/1933 H1 HA (Doud2018)",
+    "prefix": "flu-ha",
+    "virus": "Influenza A",
+    "stat-dist": [
+      406,
+      572,
+      497,
+      220
+    ],
+    "sequence-path": "data/sequences/seq_flu_ha.csv"
+  },
+  "HIV-Env-BG505": {
+    "name": "HIV-Env-BG505",
+    "description": "HIV-1 BG505 Env (Dingens2019)",
+    "prefix": "hiv-env",
+    "virus": "HIV",
+    "stat-dist": [
+      552,
+      914,
+      765,
+      349
+    ],
+    "sequence-path": "data/sequences/seq_hiv_env.csv"
+  }
+}
