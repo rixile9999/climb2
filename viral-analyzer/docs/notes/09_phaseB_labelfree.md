@@ -81,3 +81,10 @@ point→multi 가설 시험. Wu2020 HA site-B 6부위 조합변이 3,456개(6 st
 - CLIB 상관은 n_mut 증가에 따라 **감소**(n=1 +0.22 → n≥4 ~0.05); 고차 조합은 에피스타시스로 접근성 신호가 희석.
 - **한계:** Wu2020은 escape가 아니라 **fitness**. 진짜 가설(다중변이 escape) 검증엔 다중변이 escape/항원거리 ground truth 필요.
 - **결론:** 다중변이로의 확장은 기계적으로 타당하고 **t-스케일링 가설은 확인**. 단 (1)semantic 지배 (2)부호 있는 가중 필요 (3)fitness≠escape는 후속 과제.
+
+## B11 — 다중변이 항원 escape (H3N2 항원 클러스터) (`phaseB11_*.py`)
+진짜 다중변이 escape ground truth. all_h3.fasta에서 555 균주를 Smith-2004 항원 클러스터(14개, HK68..SW13, 연도 기반)로 라벨·균형 subsample, base ESM2-650M 전장 임베딩. 각 균주=자연 다중변이 변이체; 다른 클러스터=항원 escape.
+- **AUROC(다중변이 semantic → 다른 클러스터) = 0.769** — B9 단일변이 DMS escape(flu 0.60~0.64)보다 **크게 높음**. → **오래된 종의 escape는 다중변이 수준에서 포착됨**(가설 지지).
+- 항원 드리프트 **단조성**: 클러스터 순서 gap↑ → mean semantic 단조 증가(gap0 6.42→gap7 14.37), Spearman(semantic, order dist) +0.46. within/between 6.42 vs 12.03(1.87×).
+- **정직한 caveat**: 항원 클러스터는 시간순이라 신호 상당부는 시간적 발산(Spearman year +0.45 ≈ order +0.46). 순수 항원성 분리는 인접 클러스터 AUROC 0.63(무작위 이상이나 완만).
+- **결론:** 단일변이(B9)에선 약하던 flu escape가 **다중변이 항원 수준에선 잘 예측**(0.77) → point→multi 방향의 실증. CLIB의 균주쌍 확장(정렬+codon)은 후속.
