@@ -22,7 +22,9 @@ T_LIST = [0.01, 0.033, 0.1, 0.33, 1.0, 3.3, 10.0]
 ESCAPE_TASKS = [k for k in an.ESCAPE_DATA if k.startswith(f"{STRAIN}>")]
 
 BACKBONES = {
+    "esm2_150m_l1": "SARS-CoV-2-WildType-ESM-150M-L1",
     "esm2_650m_l1": "SARS-CoV-2-WildType-ESM-650M-L1",
+    "esm2_3b_l1": "SARS-CoV-2-WildType-ESM-3B-L1",
     "hie": "SARS-CoV-2-WildType-Hie",
 }
 

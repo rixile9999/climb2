@@ -59,3 +59,10 @@ base ESM2·Hie·ESM2cov 세 backbone에서 라벨-프리(freq/bloom-fit) vs 등�
 - **protein+offset 0.890** > **CLIB_only 0.864** — 강한 백본이 CLIB 위에 전이 가능한 escape 신호를 **추가**.
 - CLIB_only 0.864 = Phase6와 동일(백본 무관, 재확인).
 - **결론:** Phase6의 "CLIB이 전이신호 대부분을 담당"은 **약한 백본 한정**이었다. 도메인적응 백본(=CoVFit 백본)은 strain 배경을 넘어 일반화되는 escape 표현을 학습했다 — 강한 백본의 cross-strain 가치를 처음으로 실증.
+
+## B8 — 범용 PLM 보편성 (ESM2 150M/650M/3B/cov) (`phaseB8_pluniversality.py`)
+Hie 제외, 범용 PLM만 시험(SARS 스파이크, DMS·창발).
+- **protein-only DMS AUROC**: 150M 0.563, 650M 0.497, 3B 0.505, **ESM2cov 0.817**. → **크기(150M→3B)는 escape 신호를 안 준다; 도메인 적응이 준다.**
+- **CLIB-only = 0.883 (전 모델 동일)** — backbone 무관 강한 **보편 베이스라인**. 모든 백본을 protein-only ~0.50에서 ~0.88로 끌어올림.
+- **label-free(bloom) ≈ supervised**: 150M gap +0.000, ESM2cov +0.001 성립 / 650M −0.017, 3B −0.053 미달(단백질 노이즈 → CLIB-only가 최선, 어떤 protein 가중도 그 이하).
+- **결론:** (1) **CLIB offset의 보편성 = 성립**(모든 범용 PLM). (2) "단백질 신호가 escape 담음 & 라벨-프리 지도학습급"은 **모델 일반성/크기가 아니라 도메인 적응 여부**의 문제 — ESM2cov(도메인적응)에서만. (3) 라벨-프리는 어떤 범용 PLM에서도 CLIB-only 근처 이하로 안전(크게 해롭지 않음).
