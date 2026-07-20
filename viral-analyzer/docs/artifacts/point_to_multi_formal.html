@@ -1,0 +1,171 @@
+<title>Point → Multi — CLIMB 모델의 형식적 확장</title>
+<style>
+  :root{
+    --bg:#F5F7F5;--surface:#FFFFFF;--surface-2:#F0F3F1;--ink:#151F1B;--muted:#586A62;
+    --faint:#8A9A92;--line:#DDE4E0;--accent:#146B4A;--accent-soft:#E3F0EA;
+    --point:#3F6FB0;--multi:#146B4A;--sem:#2E7D5B;--gram:#B26A2E;--climb:#3F6FB0;
+    --serif:"Charter","Iowan Old Style","Iowan Old Style W01",Georgia,"Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --mono:"Latin Modern Math",ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0D1411;--surface:#151F1B;--surface-2:#1B2723;--ink:#E9EFEB;--muted:#9AACA3;
+    --faint:#6C7F76;--line:#273631;--accent:#54C193;--accent-soft:#14231C;
+    --point:#6E9FD9;--multi:#54C193;--sem:#57B98A;--gram:#D69152;--climb:#6E9FD9;}}
+  :root[data-theme="dark"]{--bg:#0D1411;--surface:#151F1B;--surface-2:#1B2723;--ink:#E9EFEB;--muted:#9AACA3;
+    --faint:#6C7F76;--line:#273631;--accent:#54C193;--accent-soft:#14231C;--point:#6E9FD9;--multi:#54C193;--sem:#57B98A;--gram:#D69152;--climb:#6E9FD9;}
+  :root[data-theme="light"]{--bg:#F5F7F5;--surface:#FFFFFF;--surface-2:#F0F3F1;--ink:#151F1B;--muted:#586A62;
+    --faint:#8A9A92;--line:#DDE4E0;--accent:#146B4A;--accent-soft:#E3F0EA;--point:#3F6FB0;--multi:#146B4A;--sem:#2E7D5B;--gram:#B26A2E;--climb:#3F6FB0;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:900px;margin:0 auto;padding:clamp(28px,5vw,68px) clamp(20px,5vw,40px)}
+  .col{max-width:66ch}
+  h1,h2,h3{font-weight:600;line-height:1.15;text-wrap:balance;letter-spacing:-.01em}
+  h1{font-size:clamp(1.9rem,5vw,2.9rem);margin:.2em 0 .1em}
+  h2{font-size:clamp(1.3rem,3vw,1.7rem);margin:2.3em 0 .5em}
+  p{margin:.7em 0}
+  .eyebrow{font-family:var(--sans);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  .lede{font-size:1.2rem;color:var(--muted);margin:.6em 0 0;max-width:60ch}
+  .meta{display:flex;flex-wrap:wrap;gap:.5em 1.4em;margin-top:1.5em;font-family:var(--sans);font-size:.82rem;color:var(--faint)}
+  .meta b{color:var(--ink);font-weight:600}
+  .rule{height:1px;background:var(--line);border:0;margin:2.2em 0}
+  .eq{font-family:var(--mono);background:var(--surface-2);border-radius:10px;padding:14px 18px;margin:1em 0;overflow-x:auto;font-size:1rem;line-height:2.1}
+  .eq.center{text-align:center}
+  b.sem{color:var(--sem)} b.gram{color:var(--gram)} b.climb{color:var(--climb)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:1.4em 0}
+  @media(max-width:640px){.grid{grid-template-columns:1fr}}
+  .panel{border:1px solid var(--line);border-radius:14px;padding:20px 22px;background:var(--surface)}
+  .panel.point{box-shadow:inset 0 3px 0 var(--point)}
+  .panel.multi{box-shadow:inset 0 3px 0 var(--multi)}
+  .panel h3{margin:.1em 0 .2em;font-family:var(--sans);font-size:1rem}
+  .panel .tag{font-family:var(--sans);font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.12em .5em;border-radius:20px;color:#fff}
+  .panel.point .tag{background:var(--point)} .panel.multi .tag{background:var(--multi)}
+  .panel .m{font-family:var(--mono);font-size:.9rem;line-height:1.9;margin:.6em 0 0;color:var(--ink)}
+  .panel .lbl{font-family:var(--sans);font-size:.72rem;color:var(--faint);text-transform:uppercase;letter-spacing:.06em;margin-top:.7em}
+  .twrap{overflow-x:auto;margin:1.3em 0;border:1px solid var(--line);border-radius:12px}
+  table{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:.85rem}
+  th,td{padding:11px 13px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--surface-2);font-weight:600;font-size:.72rem;letter-spacing:.03em;color:var(--muted);text-transform:uppercase}
+  tbody tr:last-child td{border-bottom:0}
+  td .mono{font-family:var(--mono);font-size:.86em}
+  .callout{background:var(--accent-soft);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:1.4em 0}
+  .callout .eyebrow{display:block;margin-bottom:.3em}
+  .knob{display:flex;gap:6px;align-items:flex-end;height:70px;margin:.6em 0}
+  .knob .bar{flex:1;background:var(--climb);border-radius:4px 4px 0 0;position:relative}
+  .knob .bar span{position:absolute;top:-16px;left:0;right:0;text-align:center;font-family:var(--sans);font-size:.64rem;color:var(--muted);font-variant-numeric:tabular-nums}
+  .knob .bar small{position:absolute;bottom:-16px;left:0;right:0;text-align:center;font-family:var(--sans);font-size:.62rem;color:var(--faint)}
+  ul{padding-left:1.2em}li{margin:.4em 0}
+  .foot{margin-top:2.6em;padding-top:1.4em;border-top:1px solid var(--line);font-family:var(--sans);font-size:.8rem;color:var(--faint)}
+</style>
+
+<div class="wrap">
+  <header class="col">
+    <span class="eyebrow">CLIMB · 형식적 모델 확장</span>
+    <h1>Point → Multi</h1>
+    <p class="lede">단일변이(point) escape 모델을 다중변이(multi) 변이체로 형식적으로 일반화한다.
+      세 항은 변이 집합 위의 합으로, 진화적 시간 t는 point↔multi 손잡이로 바뀐다.</p>
+    <div class="meta">
+      <span><b>대상</b> 단일변이 → 변이 집합 M(v)</span>
+      <span><b>불변</b> CLIB offset κ=1</span>
+      <span><b>새 자유도</b> 진화적 시간 t</span>
+    </div>
+  </header>
+
+  <hr class="rule">
+
+  <section class="col">
+    <h2>공통 골격</h2>
+    <p>두 모델 모두 세 신호를 z-표준화 후 선형결합해 순위를 매긴다. CLIB은 계수 1의 offset으로 동결.</p>
+  </section>
+  <div class="eq center col" style="max-width:none">
+    score(·) = b0·z(<b class="sem">S₁</b>) + b1·z(<b class="gram">S₂</b>) + κ·z(<b class="climb">CLIB</b>),&nbsp;&nbsp; κ = 1
+  </div>
+
+  <div class="grid col" style="max-width:none">
+    <div class="panel point">
+      <span class="tag">Point</span>
+      <h3>단일변이 모델</h3>
+      <p style="font-size:.92rem;color:var(--muted);margin:.4em 0">대상: WT의 단일 치환 &nbsp;x = x<sub>wt</sub> ⊕ (i: a<sub>wt</sub>→a)</p>
+      <div class="lbl">S₁ · semantic</div>
+      <div class="m">‖ e(x) − e(x<sub>wt</sub>) ‖₁</div>
+      <div class="lbl">S₂ · grammar</div>
+      <div class="m">log P( a │ x<sub>wt</sub>, mask i )</div>
+      <div class="lbl">CLIB · accessibility</div>
+      <div class="m">log P( c<sub>i</sub> → a, <b>t = 0.01</b> )</div>
+      <p style="font-size:.82rem;color:var(--faint);margin-top:.7em">단일-염기 regime (t→0): "한 번의 뉴클레오타이드 변화로 도달 가능한가"</p>
+    </div>
+
+    <div class="panel multi">
+      <span class="tag">Multi</span>
+      <h3>다중변이 모델</h3>
+      <p style="font-size:.92rem;color:var(--muted);margin:.4em 0">대상: 변이 집합 &nbsp;M(v) = { (i, a<sub>i</sub>) : a<sub>i</sub> ≠ a<sub>i</sub><sup>wt</sup> },&nbsp; |M| = k</p>
+      <div class="lbl">S₁ · semantic</div>
+      <div class="m">‖ e(v) − e(x<sub>wt</sub>) ‖₁</div>
+      <div class="lbl">S₂ · grammar</div>
+      <div class="m">Σ<sub>(i,a)∈M</sub> log P( a │ x<sub>wt</sub>, mask i )</div>
+      <div class="lbl">CLIB · accessibility</div>
+      <div class="m">Σ<sub>(i,a)∈M</sub> log P( c<sub>i</sub> → a, <b>t</b> )</div>
+      <p style="font-size:.82rem;color:var(--faint);margin-top:.7em">다중-치환 regime (t 자유·큰 값): "시간 t 안에 이 변이 조합에 도달 가능한가"</p>
+    </div>
+  </div>
+
+  <section class="col">
+    <h2>핵심 변경 — 세 가지</h2>
+  </section>
+  <div class="twrap col" style="max-width:none">
+    <table>
+      <thead><tr><th>항목</th><th>Point</th><th>Multi</th><th>형식적 변화</th></tr></thead>
+      <tbody>
+        <tr><td><b>대상</b></td><td>단일 치환</td><td>변이 집합 M(v), k≥1</td><td>스칼라 → 집합</td></tr>
+        <tr><td><b class="sem">S₁ semantic</b></td><td class="mono">‖e(x)−e(x_wt)‖₁</td><td class="mono">‖e(v)−e(x_wt)‖₁</td><td>전장 서열 임베딩이라 <b>형태 불변</b>(자동 일반화)</td></tr>
+        <tr><td><b class="gram">S₂ grammar</b></td><td class="mono">단일 log P</td><td class="mono">Σ<sub>M</sub> log P</td><td>변이 집합에 대한 <b>합</b>(위치독립)</td></tr>
+        <tr><td><b class="climb">CLIB</b></td><td class="mono">단일 위치, t=0.01</td><td class="mono">Σ<sub>M</sub> log P(·,t)</td><td>CTMC 전이확률의 <b>곱→로그합</b>, <b>t 자유화</b></td></tr>
+        <tr><td><b>t</b></td><td>고정 0.01</td><td>자유·큰 값</td><td><b>point↔multi 손잡이</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout col">
+    <span class="eyebrow">특수화 관계</span>
+    다중변이 모델은 <b>k = 1, t → 0</b>에서 단일변이 모델로 정확히 환원된다. 즉 point는 multi의 특수 경우다.
+    CLIB의 다중변이 인수분해 <span style="font-family:var(--mono);font-size:.9em">P(x<sub>wt</sub> ⟶<sup>M</sup> v ; t) = ∏<sub>(i,a)∈M</sub> P(c<sub>i</sub>→a, t)</span>는
+    위치독립 가정(get_clib_table)에서 곧바로 나온다.
+  </div>
+
+  <section class="col">
+    <h2>왜 t가 손잡이인가 — CTMC</h2>
+    <p>CLIB은 코돈 치환의 연속시간 마르코프 모형이다. 전이행렬 <span style="font-family:var(--mono)">P(t) = exp(t·Q)</span>에서
+      작은 t는 단일-염기 변화만, 큰 t는 다중 치환 경로를 허용한다. 오래된 종(고다양성)의 escape는 여러 변이의 조합으로
+      일어나므로 <b>큰 t</b>가 맞다 — 그리고 이는 데이터로 확인된다.</p>
+  </section>
+
+  <div class="eq center col" style="max-width:none">
+    P(t) = exp(t·Q) &nbsp;&nbsp;⟹&nbsp;&nbsp; 작은 t : 단일-염기 &nbsp;·&nbsp; 큰 t : 다중 치환
+  </div>
+
+  <div class="callout col">
+    <span class="eyebrow">실증 (Wu2020 flu HA 조합 fitness, 3,456 다중변이)</span>
+    다중-CLIB(t)와 fitness의 Spearman 상관이 t와 함께 증가:
+    <div class="knob">
+      <div class="bar" style="height:42%"><span>+.206</span><small>t=0.01</small></div>
+      <div class="bar" style="height:44%"><span>+.211</span><small>0.1</small></div>
+      <div class="bar" style="height:52%"><span>+.248</span><small>0.5</small></div>
+      <div class="bar" style="height:60%"><span>+.286</span><small>1.0</small></div>
+      <div class="bar" style="height:68%"><span>+.325</span><small>3.0</small></div>
+      <div class="bar" style="height:69%;background:var(--multi)"><span>+.329</span><small>10</small></div>
+    </div>
+    <p style="margin:.3em 0 0;font-size:.9rem;color:var(--muted)">단일-염기 regime(t=0.01)에서 다중-치환 regime(t=10)으로 갈수록 예측력↑ — <b>point→multi의 근거</b>.</p>
+  </div>
+
+  <section class="col">
+    <h2>운용상 주의</h2>
+    <ul>
+      <li><b>부호 있는 가중 필요:</b> 다중변이 표현형에선 <b class="sem">S₁</b>가 지배적이고 CLIB과 <b>부호가 반대</b>일 수 있어(예: 조합 fitness에서 semantic −0.46, CLIB +0.33), 등가중 CAC는 상쇄된다 → b0·b1을 <b>지도(부호 포함) 적합</b>.</li>
+      <li><b>위치독립 가정:</b> S₂·CLIB의 합 분해는 위치 간 에피스타시스를 무시한다; 고차 조합에서 신호 희석 관측(향후 결합항 고려).</li>
+      <li><b>t 선택:</b> 종/변이 차수에 맞춰 t를 스윕하거나 내부 CV로 선택(단일변이 SARS는 t≈0.01 고정으로 충분).</li>
+    </ul>
+  </section>
+
+  <p class="foot">CLIMB point→multi 형식화 · score = b0·S₁ + b1·S₂ + κ·CLIB(t), κ=1 · CLIB = ∏ 위치별 P(c→a, t) (CTMC exp(tQ)) ·
+    실증: Wu2020 flu HA 조합 fitness · scripts/phaseB10_multimut_*.py</p>
+</div>

@@ -1,0 +1,198 @@
+<title>CLIMB — Extended Full Paper (Research Timeline)</title>
+<style>
+  :root{
+    --bg:#F6F7F5;--surface:#FFFFFF;--surface-2:#EFF2EF;--ink:#14201C;--muted:#54655D;
+    --faint:#889690;--line:#DEE4E0;--accent:#126646;--accent-soft:#E4F0EA;
+    --a0:#7A6A4A;--a1:#146B4A;--a2:#2E7D5B;--a3:#B26A2E;--a4:#3F6FB0;--a5:#5B4B8A;
+    --serif:"Charter","Iowan Old Style","Iowan Old Style W01",Georgia,"Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0C1310;--surface:#131C18;--surface-2:#1A2420;--ink:#E8EEEA;--muted:#9BACA3;
+    --faint:#6B7C74;--line:#26332E;--accent:#54C193;--accent-soft:#13221B;
+    --a0:#C4AE82;--a1:#54C193;--a2:#57B98A;--a3:#D69152;--a4:#6E9FD9;--a5:#A99AD6;}}
+  :root[data-theme="dark"]{--bg:#0C1310;--surface:#131C18;--surface-2:#1A2420;--ink:#E8EEEA;--muted:#9BACA3;
+    --faint:#6B7C74;--line:#26332E;--accent:#54C193;--accent-soft:#13221B;--a0:#C4AE82;--a1:#54C193;--a2:#57B98A;--a3:#D69152;--a4:#6E9FD9;--a5:#A99AD6;}
+  :root[data-theme="light"]{--bg:#F6F7F5;--surface:#FFFFFF;--surface-2:#EFF2EF;--ink:#14201C;--muted:#54655D;
+    --faint:#889690;--line:#DEE4E0;--accent:#126646;--accent-soft:#E4F0EA;--a0:#7A6A4A;--a1:#146B4A;--a2:#2E7D5B;--a3:#B26A2E;--a4:#3F6FB0;--a5:#5B4B8A;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:840px;margin:0 auto;padding:clamp(28px,5vw,64px) clamp(18px,5vw,36px)}
+  h1{font-size:clamp(1.8rem,4.6vw,2.7rem);line-height:1.15;letter-spacing:-.015em;text-wrap:balance;margin:.1em 0 .25em;font-weight:600}
+  .lede{font-size:1.18rem;color:var(--muted);max-width:60ch;margin:.5em 0}
+  .sans{font-family:var(--sans)} .mono{font-family:var(--mono)}
+  .meta{display:flex;flex-wrap:wrap;gap:.5em 1.3em;margin-top:1.3em;font-family:var(--sans);font-size:.8rem;color:var(--faint)}
+  .meta b{color:var(--ink);font-weight:600}
+  .rule{height:1px;background:var(--line);border:0;margin:1.8em 0}
+
+  .era{font-family:var(--sans);font-weight:700;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
+    margin:2.4em 0 .2em;display:flex;align-items:center;gap:10px}
+  .era .dot{width:11px;height:11px;border-radius:50%}
+  .era .date{color:var(--faint);font-weight:600;letter-spacing:.04em}
+
+  .tl{position:relative;padding-left:34px;margin:0}
+  .tl::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:2px;background:var(--line)}
+  .node{position:relative;margin:16px 0}
+  .node::before{content:"";position:absolute;left:-28px;top:20px;width:13px;height:13px;border-radius:50%;
+    background:var(--surface);border:3px solid var(--nc,var(--accent))}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:18px 20px;
+    border-left:3px solid var(--nc,var(--accent))}
+  .card .q{font-family:var(--sans);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--nc,var(--accent));font-weight:600}
+  .card h3{margin:.25em 0 .1em;font-size:1.14rem;font-weight:600;line-height:1.25;text-wrap:balance}
+  .card p{margin:.45em 0;font-size:.98rem}
+  .find{background:var(--surface-2);border-radius:8px;padding:9px 13px;margin:.7em 0 .2em;font-size:.92rem}
+  .find b{color:var(--nc,var(--accent))}
+  .badges{display:flex;flex-wrap:wrap;gap:6px;margin:.6em 0 .2em}
+  .badge{font-family:var(--sans);font-size:.72rem;font-variant-numeric:tabular-nums;background:var(--surface-2);
+    border:1px solid var(--line);border-radius:20px;padding:.15em .6em;color:var(--ink)}
+  .art{display:inline-flex;align-items:center;gap:8px;margin-top:.7em;font-family:var(--sans);font-size:.86rem;
+    font-weight:600;color:var(--nc,var(--accent));text-decoration:none;border:1px solid var(--line);
+    border-radius:8px;padding:7px 12px;background:var(--surface-2)}
+  .art:hover{border-color:var(--nc,var(--accent))}
+  .art .emo{font-size:1.05rem}
+  .art .arrow{color:var(--faint);margin-left:2px}
+  .two{display:flex;gap:8px;flex-wrap:wrap}
+
+  .synth{background:var(--accent-soft);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:2em 0}
+  .synth .q{color:var(--accent)}
+  .thesis{font-family:var(--serif);font-size:1.05rem;line-height:1.6}
+  .thesis b{color:var(--accent)}
+  .foot{margin-top:2.4em;padding-top:1.2em;border-top:1px solid var(--line);font-family:var(--sans);font-size:.78rem;color:var(--faint)}
+  ul{padding-left:1.15em}li{margin:.3em 0}
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="sans" style="font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600">Extended full paper · research timeline</span>
+    <h1>CLIMB, 하나의 질문에서 다음 질문으로</h1>
+    <p class="lede">"정직한 escape 점수를 만들 수 있는가"에서 출발해, 라벨 없이 계수를 정하고, 종과 모델을 넘나들며,
+      마침내 다중변이로 확장하기까지. 각 단계는 이전 단계가 낳은 질문에 답한다. 노드마다 상세 아티팩트가 연결된다.</p>
+    <div class="meta">
+      <span><b>기간</b> 2026-07-16 → 07-20</span>
+      <span><b>모델</b> score = b0·S₁ + b1·S₂ + κ·CLIB, κ=1</span>
+      <span><b>연결 아티팩트</b> 10</span>
+      <span><b>브랜치</b> research/climb-labelfree</span>
+    </div>
+  </header>
+
+  <hr class="rule">
+
+  <!-- ACT 0 -->
+  <div class="era"><span class="dot" style="background:var(--a0)"></span>Act 0 · 기반 <span class="date">— 2026-07-16</span></div>
+  <div class="tl">
+    <div class="node" style="--nc:var(--a0)">
+      <div class="card">
+        <div class="q">질문 · 세 신호를 어떻게 정직하게 결합하나</div>
+        <h3>CLIB을 offset으로 동결하다</h3>
+        <p>semantic·grammar에 뉴클레오타이드 접근성 prior(CLIB)를 더하되, 계수를 정답에 맞춰 학습하면 순환적합이 된다.
+          CLIB을 계수 1의 offset으로 <b>동결</b>하고 b0·b1만 학습 — nested CV로 정직하게.</p>
+        <div class="find"><b>결과:</b> κ=1 최적, ~30% in-sample 낙관 제거, 약한 백본 DMS 0.53→0.85. 복잡도 추가 4종 모두 무효 = 종점.</div>
+        <div class="badges"><span class="badge">Phase 0–7</span><span class="badge">κ=1 · t=0.01</span><span class="badge">CLIB-only 전이 0.864</span></div>
+        <div class="two">
+          <a class="art" href="https://claude.ai/code/artifact/fa3ebd3f-bee4-463f-ab4e-81d9323402a9"><span class="emo">📓</span>Offset Research Journal (EN)<span class="arrow">→</span></a>
+          <a class="art" href="https://claude.ai/code/artifact/6642366a-35aa-4cc3-a705-94a090dafc9c"><span class="emo">📓</span>CLIB Offset 연구 저널 (KR)<span class="arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACT I -->
+  <div class="era"><span class="dot" style="background:var(--a1)"></span>Act I · 스코어링과 라벨-프리 질문 <span class="date">— 07-20</span></div>
+  <div class="tl">
+    <div class="node" style="--nc:var(--a1)">
+      <div class="card">
+        <div class="q">질문 · CoVFit·ESM·Hie를 한 저울에</div>
+        <h3>CoVFit × CAC 벤치마크</h3>
+        <p>SARS 스파이크에 CoVFit·ESM2·CSCS를 스코어링하고 CAC(CLIB 3극)를 적용. 도메인적응 백본이 escape를 가장 잘 잡음을 확인.</p>
+        <div class="find"><b>결과:</b> CLIMB 극(CLIB) 추가로 escape 순위 대폭 개선; CoVFit 계열이 최고.</div>
+        <a class="art" href="https://claude.ai/code/artifact/78afa295-be57-4466-a957-089a115f76cc"><span class="emo">🧬</span>CoVFit × CAC 결과<span class="arrow">→</span></a>
+      </div>
+    </div>
+    <div class="node" style="--nc:var(--a1)">
+      <div class="card">
+        <div class="q">질문 · DMS 없이 b0·b1을 어떻게 정하나</div>
+        <h3>라벨 없는 작동점 — 그리고 빈도 프록시</h3>
+        <p>목표 없이 "최적화"는 불가하니, 먼저 z-표준화 후 <b>등가중</b>(편향 없는 고정점)을 정의. 이어 escape가 아닌
+          <b>관측 치환 빈도</b>에 계수를 맞춘다.</p>
+        <div class="find"><b>결과:</b> 빈도-fit b0≈0.19·b1≈1.5(문법성·CLIB 위주). 단 변이-계통 task는 빈도↔escape <b>누출</b> — 정직한 시험은 DMS·시계열.</div>
+        <div class="two">
+          <a class="art" href="https://claude.ai/code/artifact/95f44afe-bc31-436b-8445-a76e76a3d12c"><span class="emo">⚖️</span>라벨-프리 등가중 작동점 (A)<span class="arrow">→</span></a>
+          <a class="art" href="https://claude.ai/code/artifact/a7f23139-690c-47ff-a139-fbbd5906a9ff"><span class="emo">📊</span>빈도 프록시 방법론·결과 (B)<span class="arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACT II -->
+  <div class="era"><span class="dot" style="background:var(--a2)"></span>Act II · 라벨 없이 검증하다</div>
+  <div class="tl">
+    <div class="node" style="--nc:var(--a2)">
+      <div class="card">
+        <div class="q">질문 · DMS 없이 성능을 어떻게 판정하나</div>
+        <h3>DMS-free 평가 — 시계열·누출제거·계통수</h3>
+        <p>미래는 진짜 held-out. 컷오프 이전 빈도로만 적합해 이후 창발을 예측하고, 변이의 정의변이를 뺀 채(LOVO) 재평가하고,
+          Bloom 계통수 적합도로 교차검증.</p>
+        <div class="find"><b>결과:</b> 창발 예측 AUROC <b>0.899</b>(지도학습과 동률), LOVO 5/5 생존 → 누출 반증.</div>
+        <div class="badges"><span class="badge">temporal 0.899</span><span class="badge">LOVO 5/5</span><span class="badge">Bloom ~0.85</span></div>
+        <a class="art" href="https://claude.ai/code/artifact/447e04df-4984-4c20-9950-ba7352148cf1"><span class="emo">🔭</span>DMS-free 평가<span class="arrow">→</span></a>
+      </div>
+    </div>
+    <div class="node" style="--nc:var(--a2)">
+      <div class="card">
+        <div class="q">질문 · 라벨 없이 지도학습급이 되나 · 어디까지 통하나</div>
+        <h3>Label-Free 종합 — Bloom이 지도학습을 복원하다</h3>
+        <p>Bloom 계통수 적합도에 맞춘 계수 (0.285, 0.942)가 DMS 지도학습 (0.268, 0.955)을 <b>복원</b>. 강한 백본은 strain을 넘어
+          전이(flagship). 단 백본 의존(범용 PLM 한정).</p>
+        <div class="find"><b>결과:</b> escape 라벨 0개로 지도학습급; cross-strain protein-only 0.60→0.842; escape 신호는 크기 아닌 도메인 적응.</div>
+        <a class="art" href="https://claude.ai/code/artifact/23a355ec-f52d-4481-afa4-1755a8b4fef7"><span class="emo">🧭</span>Label-Free CLIMB 종합 (capstone)<span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACT III -->
+  <div class="era"><span class="dot" style="background:var(--a3)"></span>Act III · prior의 한계</div>
+  <div class="tl">
+    <div class="node" style="--nc:var(--a3)">
+      <div class="card">
+        <div class="q">질문 · CLIB은 종을 넘는가</div>
+        <h3>CLIB는 종을 넘지 못한다</h3>
+        <p>Influenza HA·HIV Env로 확장. CLIB이 거의 무작위. 근사(modal codon)가 아니라 실제 CDS(J02176·DQ208458)로 재확인.</p>
+        <div class="find"><b>결과:</b> CLIB SARS 특이적(flu 0.50·HIV 0.58 vs SARS 0.883). 종-이전성은 CLIB보다 단백질 신호 쪽.</div>
+        <a class="art" href="https://claude.ai/code/artifact/aaa212ae-c41d-4c5e-80a9-6d964e4af61b"><span class="emo">🦠</span>교차종 보편성 시험<span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACT IV -->
+  <div class="era"><span class="dot" style="background:var(--a4)"></span>Act IV · Point → Multi</div>
+  <div class="tl">
+    <div class="node" style="--nc:var(--a4)">
+      <div class="card">
+        <div class="q">질문 · 오래된 종은 왜 안 되나 · 어떻게 고치나</div>
+        <h3>단일변이에서 다중변이로 — 형식적 확장</h3>
+        <p>가설: 오래된 종의 escape는 단일 point mutation이 아니라 조합. 세 항을 변이 집합 M 위의 합으로 일반화하고,
+          진화적 시간 <b>t를 point↔multi 손잡이</b>로.</p>
+        <div class="find"><b>결과(실증):</b> Wu2020 조합 fitness에서 다중-CLIB↔fitness 상관이 t↑와 함께 +0.206→+0.329. H3N2 항원 escape는 다중변이 semantic로 <b>AUROC 0.769</b>(단일변이 0.60 대비).</div>
+        <div class="badges"><span class="badge">t: 0.01→10</span><span class="badge">antigenic 0.769</span><span class="badge">signed CAC 0.447</span></div>
+        <a class="art" href="https://claude.ai/code/artifact/c6d5e4cf-846a-4e8c-af74-9ee3f5b8e738"><span class="emo">🧮</span>Point → Multi 형식적 확장<span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SYNTHESIS -->
+  <div class="synth">
+    <div class="q sans" style="font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700">종합 · 하나의 논문으로</div>
+    <p class="thesis" style="margin:.5em 0">
+      <b>offset(κ=1)로 정직화</b> → <b>라벨 없이 계수 선정·검증</b> → <b>강한 백본은 strain 넘어 전이하나 CLIB은 SARS 특이적</b>
+      → <b>오래된 종은 point가 아니라 multi(큰 t)로 확장</b>. 모든 headline은 독립 적대적 검증을 거쳤다.</p>
+    <a class="art" style="--nc:var(--accent);margin-top:1em" href="https://claude.ai/code/artifact/ead6cdd7-c89f-4cef-8cf2-85e39447304f"><span class="emo">📄</span>CLIMB — Full Paper (정본)<span class="arrow">→</span></a>
+  </div>
+
+  <h3 class="sans" style="font-size:.95rem;color:var(--muted);margin-top:2em">권장 읽기 순서</h3>
+  <p class="sans" style="font-size:.9rem;color:var(--muted)">
+    📓 Offset 저널 → 🧬 CoVFit×CAC → ⚖️ 등가중 → 📊 빈도프록시 → 🔭 DMS-free → 🧭 Label-Free 종합 → 🦠 교차종 → 🧮 Point→Multi → 📄 Full Paper</p>
+
+  <p class="foot">CLIMB extended full paper · 10개 아티팩트를 잇는 연구 타임라인 · 2026-07-16 → 07-20 ·
+    정본 코드/논문: branch research/climb-labelfree, viral-analyzer/docs/PAPER.md · 이슈 #1·#2</p>
+</div>

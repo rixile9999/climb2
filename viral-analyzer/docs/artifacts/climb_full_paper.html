@@ -1,0 +1,183 @@
+<title>CLIMB — Full Paper</title>
+<style>
+  :root{
+    --bg:#F6F7F5;--surface:#FFFFFF;--surface-2:#EFF2EF;--ink:#14201C;--muted:#54655D;
+    --faint:#889690;--line:#DEE4E0;--accent:#126646;--accent-soft:#E4F0EA;
+    --sem:#2E7D5B;--gram:#B26A2E;--climb:#3F6FB0;
+    --serif:"Charter","Iowan Old Style","Iowan Old Style W01",Georgia,"Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0C1310;--surface:#131C18;--surface-2:#1A2420;--ink:#E8EEEA;--muted:#9BACA3;
+    --faint:#6B7C74;--line:#26332E;--accent:#54C193;--accent-soft:#13221B;
+    --sem:#57B98A;--gram:#D69152;--climb:#6E9FD9;}}
+  :root[data-theme="dark"]{--bg:#0C1310;--surface:#131C18;--surface-2:#1A2420;--ink:#E8EEEA;--muted:#9BACA3;
+    --faint:#6B7C74;--line:#26332E;--accent:#54C193;--accent-soft:#13221B;--sem:#57B98A;--gram:#D69152;--climb:#6E9FD9;}
+  :root[data-theme="light"]{--bg:#F6F7F5;--surface:#FFFFFF;--surface-2:#EFF2EF;--ink:#14201C;--muted:#54655D;
+    --faint:#889690;--line:#DEE4E0;--accent:#126646;--accent-soft:#E4F0EA;--sem:#2E7D5B;--gram:#B26A2E;--climb:#3F6FB0;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.68;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:820px;margin:0 auto;padding:clamp(28px,5vw,64px) clamp(20px,5vw,38px)}
+  h1{font-size:clamp(1.7rem,4.4vw,2.5rem);line-height:1.18;letter-spacing:-.01em;text-wrap:balance;margin:.1em 0 .3em;font-weight:600}
+  h2{font-size:clamp(1.2rem,2.8vw,1.5rem);margin:2.4em 0 .5em;font-weight:600;letter-spacing:-.01em;padding-bottom:.25em;border-bottom:1px solid var(--line)}
+  h3{font-size:1.05rem;margin:1.6em 0 .3em;font-weight:600}
+  p{margin:.75em 0}
+  .authors{font-family:var(--sans);font-size:.9rem;color:var(--muted);margin:.3em 0}
+  .tagline{font-family:var(--mono);font-size:.76rem;color:var(--faint);margin-top:.4em}
+  .rule{height:1px;background:var(--line);border:0;margin:1.6em 0}
+  .abstract{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 24px;margin:1.6em 0}
+  .abstract .k{font-family:var(--sans);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:.4em}
+  .abstract p{font-size:.97rem;margin:.4em 0}
+  .sans{font-family:var(--sans)}
+  code,.mono{font-family:var(--mono);font-size:.85em;background:var(--surface-2);padding:.06em .32em;border-radius:4px}
+  pre{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:.82rem;line-height:1.7}
+  pre code{background:none;padding:0}
+  .eq{font-family:var(--mono);background:var(--surface-2);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:1em 0;overflow-x:auto;font-size:.92rem;line-height:1.8}
+  b.sem{color:var(--sem)}b.gram{color:var(--gram)}b.climb{color:var(--climb)}
+  .twrap{overflow-x:auto;margin:1.2em 0;border:1px solid var(--line);border-radius:10px}
+  table{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:.84rem}
+  th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:var(--surface-2);font-weight:600;font-size:.7rem;letter-spacing:.03em;color:var(--muted);text-transform:uppercase}
+  td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+  tbody tr:last-child td{border-bottom:0}
+  b.hi{color:var(--accent)}
+  ul{padding-left:1.2em}li{margin:.3em 0}
+  .refs{font-family:var(--sans);font-size:.82rem;color:var(--muted);line-height:1.7}
+  .foot{margin-top:2.4em;padding-top:1.2em;border-top:1px solid var(--line);font-family:var(--sans);font-size:.78rem;color:var(--faint)}
+  sup{font-size:.7em}
+</style>
+
+<div class="wrap">
+  <article>
+    <span class="sans" style="font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600">Working paper</span>
+    <h1>CLIMB: A Mechanistic, Label-Free, and Multi-Mutation Extension of Protein-Language-Model Viral-Escape Prediction</h1>
+    <p class="authors">Research program on branch <code>research/climb-labelfree</code> · reproducible from <code>viral-analyzer/scripts/</code></p>
+    <p class="tagline">score = b0·S₁(semantic) + b1·S₂(grammar) + κ·CLIB &nbsp;·&nbsp; κ = 1</p>
+
+    <div class="abstract">
+      <div class="k">Abstract</div>
+      <p>Protein language models (PLMs) rank viral mutations for immune escape by combining a <b class="sem">semantic</b> signal (embedding change) and a <b class="gram">grammaticality</b> signal (mutant plausibility), following CSCS (Hie et al., 2021). We develop <b>CLIMB</b>, adding a mechanistic third term — <b class="climb">CLIB</b>, a nucleotide-accessibility prior from a continuous-time Markov codon model — and study three questions: how CLIB should be incorporated, whether the weights can be chosen and validated <b>without an escape answer key</b>, and whether the single-mutation formulation transfers across strains, models, and species.</p>
+      <p>We find: (1) freezing CLIB as a <b>unit-coefficient offset</b> removes a circular in-sample fit, matches the honest supervised model, and carries cross-strain generalization; (2) the two protein weights can be set <b>label-free</b> from phylogenetic fitness, recovering the supervised weights and matching them on held-out escape (validated by leave-one-variant-out and prospective temporal forecasting); (3) escape signal comes from <b>domain adaptation, not model size</b>, and CLIB is <b>SARS-CoV-2-specific</b> — near-random on Influenza HA and HIV Env even with real codons. This motivates a <b>point → multi</b> generalization in which each term sums over a mutation set and evolutionary time t becomes free; multi-mutation semantic change then predicts real <b>antigenic-cluster escape</b> in H3N2 at AUROC 0.77 where single-mutation DMS escape was near-chance. All headline claims were re-checked by independent adversarial verification.</p>
+    </div>
+
+    <h2>1. Introduction</h2>
+    <p>Emerging viral variants evade immunity through <b>escape</b> mutations. Ranking a protein's ~24,000 single-residue mutations so escape mutations sit near the top is classically done with the <b>CSCS</b> score: <b class="sem">S1 semantic change</b> (embedding distance = antigenic novelty) and <b class="gram">S2 grammaticality</b> (mutant log-probability = viability), ranked as <code>rank(S1)+rank(S2)</code>. Building on the domain-adapted CoVFit line, we add a mechanistic third signal and ask whether the model can be made honest, label-free, and cross-domain:</p>
+    <div class="eq">score = b0·z(<b class="sem">S₁</b>) + b1·z(<b class="gram">S₂</b>) + κ·z(<b class="climb">CLIB</b>),&nbsp;&nbsp; κ fixed = 1</div>
+    <p>Contributions: <b>(1)</b> the CLIB offset (§4.1); <b>(2)</b> label-free coefficients and DMS-free validation (§4.2); <b>(3)</b> cross-strain/model/species scope (§4.3–4.5); <b>(4)</b> a point→multi extension (§4.6).</p>
+
+    <h2>2. The CLIMB model</h2>
+    <h3>2.1 Signals</h3>
+    <p>For a single mutant <code>x = x_wt ⊕ (i: a_wt→a)</code>: <b class="sem">S1</b> = ‖e(x)−e(x_wt)‖₁ with e = mean-pooled ESM2 embedding; <b class="gram">S2</b> = log P(a | x_wt, mask i), the masked-marginal log-probability.</p>
+    <h3>2.2 CLIB — a codon-accessibility prior (the offset)</h3>
+    <p>A substitution is easier to reach with fewer nucleotide changes. A 4×4 rate matrix <b>Q</b> is estimated from a virus-specific single-base-substitution spectrum; transition probabilities over evolutionary time t are <code>P(t)=exp(t·Q)</code>; per mutation <code>CLIB = log P(codon→a, t)</code>, standardized. Q comes from an <b>independent, far larger</b> dataset than the escape labels, so CLIB is a mechanistic prior. It enters as a statistical <b>offset</b> (coefficient fixed κ=1, not learned), so only b0, b1 are estimated. At t=0.01 it asks "reachable by a single nucleotide change?".</p>
+
+    <h2>3. Data, models, validation</h2>
+    <h3>3.1 Data</h3>
+    <div class="twrap"><table>
+      <thead><tr><th>dataset</th><th>role</th><th>source</th></tr></thead>
+      <tbody>
+        <tr><td>SARS-CoV-2 spike single mutants (24,187)</td><td>candidate set</td><td>reference S protein</td></tr>
+        <tr><td>DMS antibody-escape</td><td>escape GT (leakage-free)</td><td>Greaney/Starr · jbloomlab</td></tr>
+        <tr><td>Variant-defining escape (Alpha…Omicron)</td><td>escape GT (lineage)</td><td>viral-analyzer</td></tr>
+        <tr><td>Observed frequencies (~9.3M seq) + time windows</td><td>label-free proxy; temporal</td><td>CoV-Spectrum / LAPIS</td></tr>
+        <tr><td>Phylogenetic fitness (~7M seq)</td><td>label-free proxy; cross-check</td><td>Bloom SARS2-mut-fitness</td></tr>
+        <tr><td>Influenza H1 HA escape (170)</td><td>cross-species escape</td><td>Doud 2018</td></tr>
+        <tr><td>HIV Env escape (161)</td><td>cross-species escape</td><td>Dingens 2019</td></tr>
+        <tr><td>Wu2020 HA combinatorial fitness (3,456)</td><td>multi-mutation testbed</td><td>Wu 2020</td></tr>
+        <tr><td>H3N2 antigenic-cluster panel (555)</td><td>multi-mutation escape</td><td>Smith 2004 clusters</td></tr>
+        <tr><td>SBS spectra (SARS/Influenza A/HIV)</td><td>CLIB rate matrix Q</td><td><code>sbs_freq.csv</code></td></tr>
+        <tr><td>CDS: SARS tables; WSN HA <code>J02176</code>; BG505 Env <code>DQ208458</code></td><td>CLIB codons</td><td>GenBank</td></tr>
+      </tbody>
+    </table></div>
+    <h3>3.2 Models</h3>
+    <div class="twrap"><table>
+      <thead><tr><th>model</th><th class="n">params</th><th>notes</th></tr></thead>
+      <tbody>
+        <tr><td>ESM2-150M / 650M / 3B</td><td class="n">0.15–3B</td><td>general PLMs (Meta)</td></tr>
+        <tr><td><b>ESM2cov</b> (ESM2_coronaviridae)</td><td class="n">650M</td><td>domain-adapted; <b>CoVFit's backbone</b> (Zenodo 10910360)</td></tr>
+        <tr><td>CoVFit</td><td class="n">650M+LoRA</td><td>multitask fitness+DMS head (Zenodo 14438178)</td></tr>
+        <tr><td>Hie BiLSTM</td><td class="n">—</td><td><b>per-virus</b> LSTM — baseline, not a general PLM</td></tr>
+        <tr><td>CLIB</td><td class="n">—</td><td>CTMC mechanistic prior (backbone-independent)</td></tr>
+      </tbody>
+    </table></div>
+    <h3>3.3 Validation methods</h3>
+    <ul>
+      <li><b>Nested CV</b> (5 seeds × 5-fold; inner loop selects t) — nothing fit and scored on the same data.</li>
+      <li><b>Leave-one-variant-out (LOVO)</b> de-leaking; <b>prospective temporal forecasting</b> (future held out).</li>
+      <li><b>Bootstrap</b> CIs; leakage/overlap accounting; cross-signal, multi-backbone, cross-species replication.</li>
+      <li><b>Real-CDS confound control</b>; <b>independent adversarial verification</b> of each headline claim.</li>
+    </ul>
+
+    <h2>4. Results</h2>
+    <h3>4.1 The CLIB offset (Phases 0–7)</h3>
+    <p>After fixing a coordinate bug (a 1-based escape list silently scoring the wrong mutations), honest nested CV showed: the offset lifts a weak backbone (base ESM2 DMS <b class="hi">0.53 → 0.85</b>); <b>κ=1 is optimal</b> (learning it gives no gain) and removes a <b>~30% in-sample optimism</b>; t can be fixed at 0.01; and four complexity axes (discretization, stacking, ranking loss, richer semantics) all fail to beat the two-parameter model. CLIB-only reaches leave-one-strain-out AUROC 0.864 with a weak backbone.</p>
+    <h3>4.2 Label-free coefficients & DMS-free validation (Phase B)</h3>
+    <p>Regressing b0, b1 on escape-independent statistics (CLIB frozen) gives grammar ≫ semantic. Fitting on <b>Bloom phylogenetic fitness</b> yields <b>(0.285, 0.942)</b> — nearly the DMS-supervised <b>(0.268, 0.955)</b> — and matches supervised leakage-free DMS AUROC ≈0.90; three proxies (frequency, Bloom, temporal) converge. DMS-free validation: <b>prospective emergence</b> proxy_early AUROC <b class="hi">0.899</b> (> equal-weight 0.860, CI excludes 0; a within-noise tie with supervised 0.894); <b>LOVO</b> improvement survives 5/5 variants; phylogenetic cross-check ~0.85. On lineage tasks the frequency proxy is circular — the honest tests are DMS and temporal.</p>
+    <h3>4.3 Strong-backbone cross-strain transfer (B7)</h3>
+    <div class="twrap"><table>
+      <thead><tr><th>model</th><th class="n">strong ESM2cov</th><th class="n">weak base ESM2</th></tr></thead>
+      <tbody>
+        <tr><td>protein-only</td><td class="n"><b class="hi">0.842</b></td><td class="n">~0.60</td></tr>
+        <tr><td>protein + offset</td><td class="n"><b class="hi">0.890</b></td><td class="n">~0.86</td></tr>
+        <tr><td>CLIB-only</td><td class="n">0.864</td><td class="n">~0.864</td></tr>
+      </tbody>
+    </table></div>
+    <p>The domain-adapted backbone's escape representation transfers across strains and adds signal on top of CLIB — refining "CLIB carries all transfer" to the weak-backbone case.</p>
+    <h3>4.4 General-PLM universality (B8)</h3>
+    <p><b>CLIB-only = 0.883 for every backbone</b> (a universal baseline lifting each PLM from protein-only ~0.50 to ~0.88). Protein-only DMS is ~0.50 for all base sizes but <b>0.82 for ESM2cov</b> — escape signal is from <b>domain adaptation, not scale</b> (3B no better than 150M). Label-free ≈ supervised holds for 150M and ESM2cov.</p>
+    <h3>4.5 Cross-species: CLIB is SARS-specific (B9)</h3>
+    <div class="twrap"><table>
+      <thead><tr><th>species</th><th class="n">protein-only</th><th class="n">+offset</th><th class="n">CLIB-only</th></tr></thead>
+      <tbody>
+        <tr><td>SARS-CoV-2</td><td class="n">0.50</td><td class="n">0.88</td><td class="n"><b class="hi">0.883</b></td></tr>
+        <tr><td>Influenza HA</td><td class="n">0.639</td><td class="n">0.513</td><td class="n">0.500</td></tr>
+        <tr><td>HIV Env</td><td class="n">0.603</td><td class="n">0.618</td><td class="n">0.581</td></tr>
+      </tbody>
+    </table></div>
+    <p>CLIB is near-random on flu/HIV and adding it hurts. Fetching <b>real CDS</b> (WSN HA <code>J02176</code> 99.1%, BG505 Env <code>DQ208458</code> 99.9%) and rebuilding codon tables leaves the result unchanged — CLIB's escape power is genuinely <b>SARS-specific</b>; the PLM signal is the more species-transferable part.</p>
+    <h3>4.6 Point → Multi (B10–B11)</h3>
+    <p><b>Hypothesis:</b> old, diverged viruses rarely escape via a single point mutation — escape is combinatorial, so the single-mutation frame is wrong for them. <b>Formal extension</b> for a variant with mutation set M:</p>
+    <div class="eq">
+      <b class="sem">S₁</b> = ‖e(v) − e(x<sub>wt</sub>)‖₁ &nbsp;&nbsp;(unchanged form)<br>
+      <b class="gram">S₂</b> = Σ<sub>(i,a)∈M</sub> log P(a │ x<sub>wt</sub>, mask i)<br>
+      <b class="climb">CLIB(t)</b> = Σ<sub>(i,a)∈M</sub> log P(c<sub>i</sub> → a, t) &nbsp;&nbsp;(t free)
+    </div>
+    <p>The single-mutation model is the case k=1, t→0; <b>t is the point↔multi knob</b>. Evidence: on <b>Wu2020</b> combinatorial HA fitness the multi-CLIB–fitness correlation rises <b class="hi">+0.206 (t=0.01) → +0.329 (t=10)</b>; semantic dominates (−0.459) and a signed supervised CAC recovers +0.447 (unsigned equal-weight cancels to +0.254). On <b>H3N2 antigenic clusters</b> (real multi-mutation escape), multi-mutation semantic predicts antigenic-cluster escape at <b class="hi">AUROC 0.769</b> — far above single-mutation flu DMS escape (0.60–0.64) — with monotonic drift (mean semantic 6.4→14.4 across cluster gaps). Caveat: clusters are time-ordered, so much of the signal is temporal divergence (adjacent-cluster AUROC 0.63).</p>
+
+    <h2>5. Discussion</h2>
+    <p><b>Honesty as a design constraint:</b> the offset removes a circular fit, and label-free fitting + temporal validation show generalization without touching the answer key. <b>The prior is powerful but local:</b> CLIB dominates for the young, low-diversity SARS-CoV-2 but is near-random for ancient Influenza/HIV; the PLM's learned representation is what transfers, and it comes from <b>domain adaptation rather than scale</b>. <b>Escape has a characteristic mutational order:</b> for old viruses escape lives at the multi-mutation level, with the CTMC time t as the natural knob.</p>
+
+    <h2>6. Limitations</h2>
+    <ul>
+      <li>Label-free ≈ supervised is backbone-dependent (holds for ESM2cov; base PLMs reduce to CLIB-only).</li>
+      <li>The DMS test has n=19 positives → high-variance margins; weight recovery and temporal/variant results carry the claim.</li>
+      <li>Cross-species CLIB uses one reference strain per virus; per-lineage signatures untested.</li>
+      <li>The multi-mutation antigenic signal is partly temporal; a time-controlled (HI-titer) ground truth is needed.</li>
+      <li>Multi-mutation CLIB assumes position independence (no epistasis); its contribution decays at high mutation order.</li>
+    </ul>
+
+    <h2>7. Reproducibility</h2>
+    <pre><code>conda activate vanalyzer && cd viral-analyzer
+python scripts/fetch_observed_freq.py        # CoV-Spectrum snapshot
+python scripts/gen_backbone_dumps.py         # ESM2 150M/650M/3B, Hie dumps
+python scripts/phase{D,3,3b,4,5,6,7}*.py     # offset research (Phases 0-7)
+python scripts/phaseB_labelfree.py           # label-free frequency proxy
+python scripts/phaseB2_dmsfree.py            # temporal + Bloom DMS-free eval
+python scripts/phaseB3_dmsfree_plus.py       # LOVO + multi-cutoff
+python scripts/phaseB4_crosssignal.py        # cross-signal convergence
+python scripts/phaseB5_multibackbone.py      # backbone robustness
+python scripts/phaseB7_crossstrain.py        # strong-backbone cross-strain
+python scripts/phaseB8_pluniversality.py     # general-PLM universality
+python scripts/port_hie_species.py           # port flu/HIV escape
+python scripts/phaseB9_species.py            # cross-species CLIB
+python scripts/phaseB10_multimut_{embed,eval}.py    # multi-mutation CAC (Wu2020)
+python scripts/phaseB11_{panel_embed,antigenic}.py  # multi-mutation antigenic escape</code></pre>
+    <p class="sans" style="font-size:.84rem;color:var(--muted)">Reports: <code>research_report_clib_offset_en.md</code>, <code>research_report_labelfree_en.md</code>, <code>notes/09_phaseB_labelfree.md</code>. Issues: rixile9999/climb2 #1 (label-free/universality), #2 (point→multi).</p>
+
+    <h2>References</h2>
+    <p class="refs">Hie et al., <i>Science</i> 2021 (CSCS). Doud et al. 2018 (H1 HA escape). Dingens et al. 2019 (HIV Env escape). Wu et al. 2020 (HA combinatorial fitness). Smith et al. 2004 (antigenic cartography). Bloom lab SARS2-mut-fitness. CoV-Spectrum / LAPIS. Ito et al., bioRxiv 2024 (CoVFit / ESM2_coronaviridae). Lin et al. 2023 (ESM2).</p>
+
+    <p class="foot">CLIMB working paper · score = b0·S₁ + b1·S₂ + κ·CLIB(t), κ=1 · branch research/climb-labelfree · independently adversarially verified.</p>
+  </article>
+</div>

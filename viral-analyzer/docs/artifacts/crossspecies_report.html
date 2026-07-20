@@ -1,0 +1,117 @@
+<title>CLIB는 종을 넘지 못한다 — 교차종 보편성 시험</title>
+<style>
+  :root{
+    --bg:#F5F7F5;--surface:#FFFFFF;--surface-2:#F0F3F1;--ink:#151F1B;--muted:#586A62;
+    --faint:#8A9A92;--line:#DDE4E0;--accent:#146B4A;--accent-soft:#E3F0EA;
+    --sars:#146B4A;--flu:#B26A2E;--hiv:#3F6FB0;--warn:#B2542E;--warn-soft:#F4E4DB;
+    --serif:"Charter","Iowan Old Style","Iowan Old Style W01",Georgia,"Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0D1411;--surface:#151F1B;--surface-2:#1B2723;--ink:#E9EFEB;--muted:#9AACA3;
+    --faint:#6C7F76;--line:#273631;--accent:#54C193;--accent-soft:#14231C;
+    --sars:#54C193;--flu:#D69152;--hiv:#6E9FD9;--warn:#D6875A;--warn-soft:#2A1D16;}}
+  :root[data-theme="dark"]{--bg:#0D1411;--surface:#151F1B;--surface-2:#1B2723;--ink:#E9EFEB;--muted:#9AACA3;
+    --faint:#6C7F76;--line:#273631;--accent:#54C193;--accent-soft:#14231C;--sars:#54C193;--flu:#D69152;--hiv:#6E9FD9;--warn:#D6875A;--warn-soft:#2A1D16;}
+  :root[data-theme="light"]{--bg:#F5F7F5;--surface:#FFFFFF;--surface-2:#F0F3F1;--ink:#151F1B;--muted:#586A62;
+    --faint:#8A9A92;--line:#DDE4E0;--accent:#146B4A;--accent-soft:#E3F0EA;--sars:#146B4A;--flu:#B26A2E;--hiv:#3F6FB0;--warn:#B2542E;--warn-soft:#F4E4DB;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:900px;margin:0 auto;padding:clamp(28px,5vw,68px) clamp(20px,5vw,40px)}
+  .col{max-width:64ch}
+  h1,h2,h3{font-weight:600;line-height:1.15;text-wrap:balance;letter-spacing:-.01em}
+  h1{font-size:clamp(1.9rem,5vw,2.9rem);margin:.2em 0 .1em}
+  h2{font-size:clamp(1.35rem,3vw,1.8rem);margin:2.4em 0 .5em}
+  p{margin:.7em 0}
+  .eyebrow{font-family:var(--sans);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600}
+  .lede{font-size:1.2rem;color:var(--muted);margin:.6em 0 0;max-width:60ch}
+  .meta{display:flex;flex-wrap:wrap;gap:.5em 1.4em;margin-top:1.5em;font-family:var(--sans);font-size:.82rem;color:var(--faint)}
+  .meta b{color:var(--ink);font-weight:600}
+  .rule{height:1px;background:var(--line);border:0;margin:2.2em 0}
+  .mono{font-family:var(--mono)}
+  .chart{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px clamp(16px,3vw,28px);margin:1.6em 0}
+  .chart h3{font-family:var(--sans);font-size:.9rem;margin:0 0 16px;color:var(--muted);font-weight:600}
+  .row{display:grid;grid-template-columns:130px 1fr;gap:12px;align-items:center;margin:14px 0}
+  .row .name{font-family:var(--sans);font-size:.86rem;text-align:right;color:var(--ink)}
+  .row .name small{display:block;color:var(--faint);font-size:.74rem}
+  .track{background:var(--surface-2);border-radius:6px;height:26px;position:relative;overflow:hidden}
+  .fill{height:100%;border-radius:6px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;color:#fff;font-family:var(--sans);font-size:.74rem;font-variant-numeric:tabular-nums;transition:width .9s cubic-bezier(.22,1,.36,1)}
+  .fill.sars{background:var(--sars)}.fill.flu{background:var(--flu)}.fill.hiv{background:var(--hiv)}
+  .rand{position:absolute;left:50%;top:0;bottom:0;border-left:2px dashed var(--faint);opacity:.6}
+  .rand span{position:absolute;top:-18px;left:4px;font-family:var(--sans);font-size:.64rem;color:var(--faint);white-space:nowrap}
+  .twrap{overflow-x:auto;margin:1.3em 0;border:1px solid var(--line);border-radius:12px}
+  table{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:.87rem}
+  th,td{padding:10px 13px;text-align:right;font-variant-numeric:tabular-nums;border-bottom:1px solid var(--line);white-space:nowrap}
+  th{background:var(--surface-2);font-weight:600;font-size:.72rem;letter-spacing:.03em;color:var(--muted);text-transform:uppercase}
+  td:first-child,th:first-child{text-align:left}
+  tbody tr:last-child td{border-bottom:0}
+  .lab{font-weight:600;color:var(--ink)}
+  td.hi{color:var(--sars);font-weight:700}td.lo{color:var(--warn);font-weight:700}
+  .callout{background:var(--accent-soft);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:1.4em 0}
+  .callout.warn{background:var(--warn-soft);border-color:var(--warn)}
+  .callout .eyebrow{display:block;margin-bottom:.3em}.callout.warn .eyebrow{color:var(--warn)}
+  ul{padding-left:1.2em}li{margin:.4em 0}
+  .foot{margin-top:2.6em;padding-top:1.4em;border-top:1px solid var(--line);font-family:var(--sans);font-size:.8rem;color:var(--faint)}
+</style>
+
+<div class="wrap">
+  <header class="col">
+    <span class="eyebrow">CLIMB · 교차종 보편성</span>
+    <h1>CLIB는 종을 넘지 못한다</h1>
+    <p class="lede">SARS-CoV-2에서 escape 예측을 지배하던 뉴클레오타이드 접근성 prior(CLIB)가
+      Influenza HA·HIV Env에서는 거의 무작위다. 실제 CDS로 확인 — 근사 아티팩트가 아니다.</p>
+    <div class="meta">
+      <span><b>종</b> SARS-CoV-2 Spike · Influenza HA(H1) · HIV Env(BG505)</span>
+      <span><b>escape</b> Doud2018 · Dingens2019 (DMS)</span>
+      <span><b>백본</b> base ESM2-650M · 5-fold CV</span>
+    </div>
+  </header>
+
+  <hr class="rule">
+
+  <div class="chart">
+    <h3>CLIB-only escape AUROC (무학습) — 종별</h3>
+    <div class="row"><div class="name">SARS-CoV-2<small>Spike</small></div>
+      <div class="track"><div class="fill sars" style="width:88.3%">0.883</div><div class="rand"><span>무작위 0.5</span></div></div></div>
+    <div class="row"><div class="name">Influenza<small>HA (H1)</small></div>
+      <div class="track"><div class="fill flu" style="width:50.0%">0.500</div><div class="rand"></div></div></div>
+    <div class="row"><div class="name">HIV<small>Env (BG505)</small></div>
+      <div class="track"><div class="fill hiv" style="width:58.1%">0.581</div><div class="rand"></div></div></div>
+  </div>
+
+  <section class="col">
+    <p>CLIB만으로 SARS는 AUROC <b>0.883</b>인데, Influenza는 <b>0.500</b>(완전 무작위), HIV는 <b>0.581</b>(약함).
+      게다가 flu/HIV에선 <b>CLIB offset을 더하면 오히려 성능이 떨어진다.</b></p>
+  </section>
+
+  <div class="twrap">
+    <table>
+      <thead><tr><th>종</th><th>protein-only (ESM2)</th><th>protein + CLIB offset</th><th>CLIB-only</th></tr></thead>
+      <tbody>
+        <tr><td class="lab">SARS-CoV-2 <small>(참조)</small></td><td>0.50*</td><td class="hi">0.88</td><td class="hi">0.883</td></tr>
+        <tr><td class="lab">Influenza HA</td><td>0.639</td><td class="lo">0.513</td><td class="lo">0.500</td></tr>
+        <tr><td class="lab">HIV Env</td><td>0.603</td><td>0.618</td><td>0.581</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="col" style="font-family:var(--sans);font-size:.78rem;color:var(--faint)">* SARS base-ESM protein-only는 노이즈(~0.50); CLIB가 이를 0.88로 끌어올린다. flu/HIV에선 그 리프트가 사라진다. flu/HIV protein-only(0.60~0.64)가 약하지만 최선.</p>
+
+  <div class="callout warn col">
+    <span class="eyebrow">confound 제거 — 근사가 원인이 아니다</span>
+    처음엔 flu/HIV codon을 modal 역번역으로 근사했으나, GenBank에서 <b>실제 CDS</b>(WSN HA J02176, 내 WT와 99.1% 일치 · BG505 Env DQ208458, 99.9%)를 받아 <b>99%+ 실제 codon</b>으로 재실행해도 결과 동일(CLIB flu 0.500·HIV 0.581). 즉 near-random은 codon 근사 아티팩트가 아니라 <b>진짜 종 차이</b>다.
+  </div>
+
+  <section class="col">
+    <h2>해석과 함의</h2>
+    <ul>
+      <li><b>CLIB는 SARS-CoV-2 특이적이다.</b> "보편적 메커니즘 prior"라는 프레이밍은 SARS에 국한된다.</li>
+      <li><b>왜?</b> SARS escape는 팬데믹 초기 저다양성에서 <b>단일-염기 접근성에 강하게 제약</b>돼 CLIB가 잘 포착한다. Influenza·HIV(고다양성, 항원 구조 제약)의 DMS escape는 접근성으로 설명되지 않는다.</li>
+      <li><b>종-이전성은 오히려 단백질 LM 신호 쪽.</b> flu/HIV에서 약하게라도 최선인 건 ESM2 protein-only(0.60~0.64).</li>
+      <li>이 결과가 SARS의 [[label-free CLIMB]] 권장(ESM2cov + CLIB offset)을 무효화하진 않는다 — 그건 SARS 내에서 여전히 유효. 다만 <b>다른 종엔 그대로 이식 불가</b>.</li>
+    </ul>
+  </section>
+
+  <p class="foot">Influenza HA(Doud2018, 170변이/41부위)·HIV Env(Dingens2019, 161변이/69부위) · base ESM2-650M · 5-fold CV ·
+    실제 CDS: J02176(HA)·DQ208458(Env) · scripts/port_hie_species.py, phaseB9_species.py</p>
+</div>
