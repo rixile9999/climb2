@@ -73,3 +73,11 @@ Hie 데이터(Doud2018 flu HA 170변이/41부위, Dingens2019 HIV Env 161변이/
 - **결정적 confound — modal-codon 근사**: SARS는 실제 codon(seq_cov_wt.csv), flu/HIV는 표준 modal-codon 역번역(Hie 전체 데이터도 AA-only, CDS 부재 확인). CLIB의 단일-염기 접근성은 codon에 민감하므로, 이 near-random이 (a)근사 아티팩트인지 (b)진짜 종 차이인지 실제 CDS 없이 분리 불가.
 - **[confound 제거] 실제 CDS로 재실행**: GenBank에서 WSN HA(J02176, 내 WT와 99.1% 일치)·BG505 Env(DQ208458, 99.9%) CDS를 받아 **실제 codon(99%+)**으로 codon table 재구성 후 재실행 → **결과 사실상 동일**(CLIB_only flu 0.500, HIV 0.581; +offset flu 0.513, HIV 0.618). 즉 near-random은 **modal-codon 아티팩트가 아님**.
 - **최종 결론:** **CLIB의 escape 예측력은 종간 보편적이지 않다 — SARS-CoV-2 특이적**. flu HA는 완전 무작위(0.50), HIV Env는 약함(0.58). "보편적 메커니즘 prior"는 SARS에 국한. 반면 **protein LM 신호가 flu/HIV에서 (약하게라도) 최선** → 종-이전성은 CLIB보다 단백질 신호 쪽. 해석: SARS escape는 팬데믹 초기 저다양성에서 단일-염기 접근성에 강하게 제약(CLIB가 포착), flu/HIV(고다양성·항원 구조 제약)의 DMS escape는 접근성으로 설명 안 됨.
+
+## B10 — 다중변이 CAC 프로토타입 (Wu2020 flu HA 조합 fitness) (`phaseB10_multimut_*.py`)
+point→multi 가설 시험. Wu2020 HA site-B 6부위 조합변이 3,456개(6 strain), 각 변이=strain WT의 0~6 위치 치환(다중). base ESM2-650M로 semantic(전장 임베딩 L1)·grammar, 다중-CLIB(t)=∏ 위치별 P(codon→aa,t). fitness(preference)와 Spearman.
+- **핵심 — t-손잡이 확인:** 다중-CLIB 상관이 t와 함께 증가, +0.206(t=0.01) → **+0.329(t=10)**. "큰 t = 다중변이 regime"이 실증됨 → 오래된 종엔 point(작은 t)가 아니라 multi(큰 t)가 맞다.
+- **뉘앙스:** 조합 fitness에선 **semantic이 지배**(−0.459; 발산=저적합), grammar +0.106, CLIB 보조(+0.33). 부호 반대라 등가중 CAC는 상쇄(≈0); gram+CLIB +0.31. → 다중변이 CAC는 **부호 있는(지도) 가중** 필요.
+- CLIB 상관은 n_mut 증가에 따라 **감소**(n=1 +0.22 → n≥4 ~0.05); 고차 조합은 에피스타시스로 접근성 신호가 희석.
+- **한계:** Wu2020은 escape가 아니라 **fitness**. 진짜 가설(다중변이 escape) 검증엔 다중변이 escape/항원거리 ground truth 필요.
+- **결론:** 다중변이로의 확장은 기계적으로 타당하고 **t-스케일링 가설은 확인**. 단 (1)semantic 지배 (2)부호 있는 가중 필요 (3)fitness≠escape는 후속 과제.
