@@ -88,3 +88,6 @@ point→multi 가설 시험. Wu2020 HA site-B 6부위 조합변이 3,456개(6 st
 - 항원 드리프트 **단조성**: 클러스터 순서 gap↑ → mean semantic 단조 증가(gap0 6.42→gap7 14.37), Spearman(semantic, order dist) +0.46. within/between 6.42 vs 12.03(1.87×).
 - **정직한 caveat**: 항원 클러스터는 시간순이라 신호 상당부는 시간적 발산(Spearman year +0.45 ≈ order +0.46). 순수 항원성 분리는 인접 클러스터 AUROC 0.63(무작위 이상이나 완만).
 - **결론:** 단일변이(B9)에선 약하던 flu escape가 **다중변이 항원 수준에선 잘 예측**(0.77) → point→multi 방향의 실증. CLIB의 균주쌍 확장(정렬+codon)은 후속.
+
+## B10b — 부호 있는 다중변이 CAC (Wu2020, #1)
+부호 문제 해결: 등가중 CAC(상쇄) +0.254 → **부호 지도적합 CAC(5-fold OOF) +0.447**. 학습 부호 [sem −0.365, gram +0.008, CLIB(t=10) +0.139]. 단 조합(0.447)≈semantic 단독(0.459) — 조합 fitness 지형은 semantic 지배, CLIB은 양수·소폭 기여(t-스케일 유지). → 다중변이 CAC는 부호 처리로 상쇄는 해결되나 이 지형에선 semantic이 신호의 대부분.
