@@ -71,5 +71,5 @@ Hie 제외, 범용 PLM만 시험(SARS 스파이크, DMS·창발).
 Hie 데이터(Doud2018 flu HA 170변이/41부위, Dingens2019 HIV Env 161변이/69부위) 포팅, base ESM2-650M, 5-fold CV.
 - **CLIB_only: flu 0.508, HIV 0.547 (거의 무작위)** — SARS의 0.883과 정반대. **CLIB offset 추가 시 악화**(flu 0.639→0.527, HIV 0.603→0.583). protein-only ESM2가 약하지만 최선(0.60~0.64).
 - **결정적 confound — modal-codon 근사**: SARS는 실제 codon(seq_cov_wt.csv), flu/HIV는 표준 modal-codon 역번역(Hie 전체 데이터도 AA-only, CDS 부재 확인). CLIB의 단일-염기 접근성은 codon에 민감하므로, 이 near-random이 (a)근사 아티팩트인지 (b)진짜 종 차이인지 실제 CDS 없이 분리 불가.
-- **결론:** **CLIB의 종간 보편성은 실증되지 않음** — SARS 특이적이거나 codon-정확도 의존일 수 있음. "보편적 메커니즘 prior" 프레이밍 약화. (반면 protein LM 신호는 flu/HIV에서 약하게라도 최선 → 단백질 신호 쪽이 오히려 더 종-이전적.)
-- **미해결**: 실제 WSN HA·BG505 Env CDS(GenBank)로 codon을 확정하면 confound 제거 가능.
+- **[confound 제거] 실제 CDS로 재실행**: GenBank에서 WSN HA(J02176, 내 WT와 99.1% 일치)·BG505 Env(DQ208458, 99.9%) CDS를 받아 **실제 codon(99%+)**으로 codon table 재구성 후 재실행 → **결과 사실상 동일**(CLIB_only flu 0.500, HIV 0.581; +offset flu 0.513, HIV 0.618). 즉 near-random은 **modal-codon 아티팩트가 아님**.
+- **최종 결론:** **CLIB의 escape 예측력은 종간 보편적이지 않다 — SARS-CoV-2 특이적**. flu HA는 완전 무작위(0.50), HIV Env는 약함(0.58). "보편적 메커니즘 prior"는 SARS에 국한. 반면 **protein LM 신호가 flu/HIV에서 (약하게라도) 최선** → 종-이전성은 CLIB보다 단백질 신호 쪽. 해석: SARS escape는 팬데믹 초기 저다양성에서 단일-염기 접근성에 강하게 제약(CLIB가 포착), flu/HIV(고다양성·항원 구조 제약)의 DMS escape는 접근성으로 설명 안 됨.
