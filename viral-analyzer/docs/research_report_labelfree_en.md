@@ -80,7 +80,7 @@ Repeating the label-free recipe across backbones:
 | base ESM2 (weak) | 0.786 | 0.883 | 0.863 | 0.880 | features are noise; reduces to CLIB ✓ |
 | Hie | 0.899 | 0.884 | 0.861 | 0.907 | freq/bloom-fit give **negative grammar**, underperform ✗ |
 
-**Label-free ≈ supervised is backbone-dependent.** It holds when the backbone's signals align with natural frequency/fitness selection (ESM2cov), harmlessly reduces to CLIB when the protein features are noise (base ESM2), and **fails** when they do not align (Hie). Practical recommendation: use **ESM2cov — which is exactly CoVFit's backbone**.
+**Correction (important).** Hie is **not a general protein language model** — it is Hie et al.'s per-virus BiLSTM, trained separately for each virus. So its failure is **not** a valid counterexample to universality across general PLMs and should be excluded from the backbone-universality question. **Restricted to general PLMs (the ESM2 family), there is no counterexample:** base ESM2 harmlessly reduces to CLIB when its protein features are noise, and ESM2cov recovers the supervised weights. Universality *within general PLMs* therefore remains open and plausible — tested directly in §11 (general-PLM × species matrix). Practical recommendation still: **ESM2cov — exactly CoVFit's backbone**.
 
 ---
 

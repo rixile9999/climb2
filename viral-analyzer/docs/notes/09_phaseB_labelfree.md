@@ -42,8 +42,8 @@ python scripts/phaseB3_dmsfree_plus.py  # LOVO 누출제거 + 다중 컷오프
 base ESM2·Hie·ESM2cov 세 backbone에서 라벨-프리(freq/bloom-fit) vs 등가중/CLIB-only/지도학습(DMS) 비교. 정직한 시험(DMS, 창발).
 - **ESM2cov(강·도메인적응):** bloom-fit(0.285,0.942)이 지도학습(0.268,0.955) 복원, DMS 0.899·창발 0.898로 지도학습과 동등. ✓
 - **base ESM2(약):** 단백질 S1/S2가 노이즈(등가중 DMS 0.786). 라벨-프리가 이를 올바르게 ~0/음수로 낮추고 **CLIB-only(DMS 0.883)가 지배**. 모델이 CLIB로 환원. ✓(무해)
-- **Hie:** freq/bloom-fit이 grammar에 **음의 가중치**를 줘 DMS 0.837/0.861로 지도학습(0.907)보다 **악화**. 창발은 전 방법 ~0.5(무작위). ✗ **라벨-프리 실패.**
-- **결론:** "라벨-프리 ≈ 지도학습"은 **보편적이지 않고 backbone 의존적**. backbone 신호가 자연 빈도/적합도와 정렬될 때(ESM2cov)만 성립. 실무 권고: **CoVFit 백본인 ESM2cov + bloom-fit** 라벨-프리 가중치.
+- **Hie:** freq/bloom-fit이 grammar에 **음의 가중치**를 줘 DMS 0.837/0.861로 지도학습(0.907)보다 **악화**. 창발은 전 방법 ~0.5(무작위). ✗ 라벨-프리 실패.
+- **[정정] 결론:** Hie는 **범용 PLM이 아니라 Hie et al.이 바이러스별로 학습시킨 LSTM**이므로 backbone-보편성의 데이터포인트에서 **제외**해야 한다 — 그 실패는 범용 PLM 보편성의 반례가 아니다. **범용 PLM(ESM2 계열)만 보면 반례가 없다**: base ESM2는 약한 신호를 무해하게 CLIB로 환원, ESM2cov는 지도학습 복원. 즉 **범용 PLM 한정 보편성은 열려 있고 그럴듯**하다(B8에서 실제 시험). 실무 권고는 여전히 **ESM2cov + bloom-fit**.
 
 ## B6 — 앙상블 타깃 = 무개선 (종점) (`phaseB6_ensemble.py`)
 세 신호(빈도·Bloom·초기빈도) rank-sum 복합 타깃으로 적합 → 단일 최고를 못 넘음. DMS: ensemble 0.887 < bloom_fit 0.899. 최신기 C3는 전 방법 ~0.83 수렴(재가중 무관, 내재적 한계). → offset 연구와 동일하게 **복잡도 추가 무효 = 라벨-프리 최적화 종점**.
