@@ -91,3 +91,10 @@ point→multi 가설 시험. Wu2020 HA site-B 6부위 조합변이 3,456개(6 st
 
 ## B10b — 부호 있는 다중변이 CAC (Wu2020, #1)
 부호 문제 해결: 등가중 CAC(상쇄) +0.254 → **부호 지도적합 CAC(5-fold OOF) +0.447**. 학습 부호 [sem −0.365, gram +0.008, CLIB(t=10) +0.139]. 단 조합(0.447)≈semantic 단독(0.459) — 조합 fitness 지형은 semantic 지배, CLIB은 양수·소폭 기여(t-스케일 유지). → 다중변이 CAC는 부호 처리로 상쇄는 해결되나 이 지형에선 semantic이 신호의 대부분.
+
+## B12 — 항원거리(HI titer) 시간교란 통제 (`phaseB12_antigenic_hi.py`)
+B11의 시간교란 caveat를 HI 기반 항원지도로 해소. Smith-2004 H3N2 항원지도(Racmacs `h3map2004`, 273 균주, HI titer 유래 2D 항원좌표) + 각 균주 HA 서열(항원거리=좌표 유클리드, 항원단위≈2배 HI 희석). ESM2-650M 임베딩.
+- **원상관**: semantic↔antigenic +0.788 (단 semantic~year 0.833, antigenic~year 0.842 — 대부분 시간).
+- **부분상관(연도 통제)**: semantic↔antigenic | year = **+0.289** — 시간 제거 후에도 양의 신호 잔존.
+- **동일-연도밴드**(가장 깨끗): |Δyear|=0 (n=2749) **+0.508**, ≤2 +0.575, ≤5 +0.520 — 시간 드리프트 불가능한 조건에서도 semantic이 항원거리 예측.
+- **결론:** 다중변이 semantic의 항원 escape 예측은 **시간 발산의 부산물이 아니라 실제 항원 신호**. B11(0.769) 중 시간교란을 걷어낸 순수 항원 성분이 ρ≈0.5로 확인됨. → point→multi 방향의 가장 강한 실증.
