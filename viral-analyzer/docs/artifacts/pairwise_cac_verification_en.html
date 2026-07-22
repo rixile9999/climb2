@@ -1,0 +1,136 @@
+<title>Pairwise CAC on Antigenic Distance — Complete Model & Real-CDS Check</title>
+<style>
+  :root{
+    --bg:#F6F7F5;--surface:#FFFFFF;--surface-2:#EFF2EF;--ink:#14201C;--muted:#54655D;
+    --faint:#889690;--line:#DEE4E0;--accent:#126646;--accent-soft:#E4F0EA;
+    --sem:#2E7D5B;--clib:#3F6FB0;--warn:#B2542E;--warn-soft:#F4E4DB;--good:#1F7A57;
+    --serif:"Charter","Iowan Old Style","Iowan Old Style W01",Georgia,"Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0C1310;--surface:#131C18;--surface-2:#1A2420;--ink:#E8EEEA;--muted:#9BACA3;
+    --faint:#6B7C74;--line:#26332E;--accent:#54C193;--accent-soft:#13221B;--sem:#57B98A;--clib:#6E9FD9;--warn:#D6875A;--warn-soft:#2A1D16;--good:#3FA277;}}
+  :root[data-theme="dark"]{--bg:#0C1310;--surface:#131C18;--surface-2:#1A2420;--ink:#E8EEEA;--muted:#9BACA3;--faint:#6B7C74;--line:#26332E;--accent:#54C193;--accent-soft:#13221B;--sem:#57B98A;--clib:#6E9FD9;--warn:#D6875A;--warn-soft:#2A1D16;--good:#3FA277;}
+  :root[data-theme="light"]{--bg:#F6F7F5;--surface:#FFFFFF;--surface-2:#EFF2EF;--ink:#14201C;--muted:#54655D;--faint:#889690;--line:#DEE4E0;--accent:#126646;--accent-soft:#E4F0EA;--sem:#2E7D5B;--clib:#3F6FB0;--warn:#B2542E;--warn-soft:#F4E4DB;--good:#1F7A57;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:860px;margin:0 auto;padding:clamp(28px,5vw,64px) clamp(18px,5vw,38px)}
+  .col{max-width:64ch}
+  h1{font-size:clamp(1.7rem,4.4vw,2.5rem);line-height:1.16;letter-spacing:-.01em;text-wrap:balance;margin:.1em 0 .25em;font-weight:600}
+  h2{font-size:clamp(1.22rem,2.8vw,1.55rem);margin:2.1em 0 .5em;font-weight:600}
+  h3{font-size:1.02rem;margin:1.2em 0 .3em;font-weight:600}
+  p{margin:.7em 0}
+  .lede{font-size:1.16rem;color:var(--muted);max-width:62ch}
+  .sans{font-family:var(--sans)} .mono{font-family:var(--mono)}
+  code{font-family:var(--mono);font-size:.85em;background:var(--surface-2);padding:.06em .32em;border-radius:4px}
+  .meta{display:flex;flex-wrap:wrap;gap:.5em 1.3em;margin-top:1.3em;font-family:var(--sans);font-size:.8rem;color:var(--faint)}
+  .meta b{color:var(--ink);font-weight:600}
+  .rule{height:1px;background:var(--line);border:0;margin:1.8em 0}
+  .eq{font-family:var(--mono);background:var(--surface-2);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:13px 17px;margin:1em 0;font-size:.9rem;line-height:1.9;overflow-x:auto}
+  b.sem{color:var(--sem)} b.cl{color:var(--clib)}
+  .twrap{overflow-x:auto;margin:1.2em 0;border:1px solid var(--line);border-radius:11px}
+  table{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:.86rem}
+  th,td{padding:10px 13px;text-align:right;font-variant-numeric:tabular-nums;border-bottom:1px solid var(--line);white-space:nowrap}
+  th{background:var(--surface-2);font-weight:600;font-size:.71rem;letter-spacing:.03em;color:var(--muted);text-transform:uppercase}
+  td:first-child,th:first-child{text-align:left}
+  tbody tr:last-child td{border-bottom:0}
+  td.hi{color:var(--good);font-weight:700} .lab{font-weight:600;color:var(--ink)}
+  tr.win td{background:var(--accent-soft)}
+  .callout{background:var(--accent-soft);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:1.3em 0}
+  .callout.warn{background:var(--warn-soft);border-color:var(--warn)}
+  .callout .eyebrow{display:block;font-family:var(--sans);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:.3em}
+  .callout.warn .eyebrow{color:var(--warn)}
+  .step{display:flex;gap:12px;align-items:flex-start;margin:.8em 0}
+  .step .n{flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-family:var(--sans);font-weight:700;font-size:.8rem;display:flex;align-items:center;justify-content:center;border:1px solid var(--line)}
+  .step p{margin:0;font-size:.96rem}
+  ul{padding-left:1.2em}li{margin:.35em 0}
+  .foot{margin-top:2.4em;padding-top:1.2em;border-top:1px solid var(--line);font-family:var(--sans);font-size:.78rem;color:var(--faint)}
+</style>
+
+<div class="wrap">
+  <header class="col">
+    <span class="sans" style="font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600">CLIMB · multi-mutation verification (cont.)</span>
+    <h1>The complete pairwise CAC — and why codons don't matter here</h1>
+    <p class="lede">The antigenic-distance test used semantic alone. We add the pairwise multi-CLIB term to
+      make the complete CAC, and check it against a real-CDS codon table. The complete model wins — but
+      the gain is genetic distance, not CLIB's mechanism, and real CDS equals the codon approximation.</p>
+    <div class="meta">
+      <span><b>Data</b> Smith-2004 H3N2 antigenic map (273 strains)</span>
+      <span><b>Backbone</b> ESM2-650M</span>
+      <span><b>Distance</b> HI-titer antigenic units</span>
+    </div>
+  </header>
+
+  <hr class="rule">
+
+  <section class="col">
+    <h2>What "complete pairwise CAC" means</h2>
+    <p>Earlier, antigenic distance between two strains was predicted from <b class="sem">semantic</b> change only.
+      The complete CAC adds the <b class="cl">multi-CLIB</b> of the whole mutation set separating the pair:</p>
+  </section>
+  <div class="eq col" style="max-width:none">
+    dist(A,B) = b0·<b class="sem">semantic(A,B)</b> + c·<b class="cl">CLIB(A,B; t)</b><br>
+    <b class="cl">CLIB(A,B; t)</b> = ½ Σ<sub>i∈M</sub> [ log P(codon(a<sub>i</sub><sup>A</sup>)→a<sub>i</sub><sup>B</sup>, t) + log P(codon(a<sub>i</sub><sup>B</sup>)→a<sub>i</sub><sup>A</sup>, t) ]
+  </div>
+  <p class="col" style="font-size:.92rem;color:var(--muted)">M = the 328-position-aligned positions where A and B differ (dozens, for strains decades apart). Signed weights (b0, c) are fit; temporal confound is controlled as before (partial | year; within-year pairs).</p>
+
+  <section class="col">
+    <h2>Result — the complete CAC beats semantic-only</h2>
+  </section>
+  <div class="twrap col" style="max-width:none">
+    <table>
+      <thead><tr><th>model</th><th>partial | year</th><th>within-year (Δyr=0)</th></tr></thead>
+      <tbody>
+        <tr><td class="lab">semantic only</td><td>+0.289</td><td>+0.508</td></tr>
+        <tr class="win"><td class="lab">complete CAC [sem + CLIB]</td><td class="hi">+0.481</td><td class="hi">+0.547</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="col">After controlling for time, the complete CAC nearly doubles the semantic-only partial correlation (0.48 vs 0.29).</p>
+
+  <div class="callout warn col">
+    <span class="eyebrow">But the gain is genetic distance, not the mechanism</span>
+    At the strain-pair scale, pairwise CLIB is <b>essentially a mutation count</b>: <code>corr(CLIB, Hamming) = 0.9989</code>,
+    and it is <b>t-independent</b> (identical from t=0.1 to 100). CAC[sem+Hamming] ≈ CAC[sem+CLIB] (partial 0.483 vs 0.481).
+    So the improvement is <b>genetic/mutational distance</b> — which the PLM embedding under-weights after temporal control —
+    not CLIB's nucleotide-accessibility mechanism. Over dozens of mutations, the accessibility microstructure washes out.
+  </div>
+
+  <section class="col">
+    <h2>Real-CDS check — codon choice is irrelevant here</h2>
+    <p>We used a modal (most-common-codon) reverse-translation. To verify this approximation, we fetched real codons and re-ran.</p>
+    <div class="step"><div class="n">1</div><p>Fetched <b>15 real H3N2 HA CDS</b> from GenBank; derived the empirical modal codon per amino acid.</p></div>
+    <div class="step"><div class="n">2</div><p>The real codons differ from the generic table at <b>14 / 20 amino acids</b> (influenza AT-bias: E = GAA not GAG, K = AAA not AAG, …).</p></div>
+    <div class="step"><div class="n">3</div><p>Recomputed pairwise CLIB and the CAC with the real codons.</p></div>
+  </div>
+  <div class="twrap col" style="max-width:none">
+    <table>
+      <thead><tr><th>codon table</th><th>CAC partial | year</th><th>CAC within-year</th></tr></thead>
+      <tbody>
+        <tr><td class="lab">generic modal (approx.)</td><td>+0.4806</td><td>+0.5473</td></tr>
+        <tr><td class="lab">real-CDS empirical</td><td>+0.4806</td><td>+0.5473</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout col">
+    <span class="eyebrow">Conclusion</span>
+    <code>corr(CLIB_generic, CLIB_real) = 1.00000</code>; the CAC is identical to four decimals. Because strain-pair CLIB is
+    count-dominated, the specific codons don't matter — the <b>modal approximation was fully justified</b>. This contrasts
+    with SARS-CoV-2 single-mutant escape, where a single position preserves the accessibility microstructure and codons did matter
+    (yet even there real ≈ modal).
+  </div>
+
+  <section class="col">
+    <h2>Takeaways</h2>
+    <ul>
+      <li><b>The complete CAC improves antigenic-distance prediction</b> over semantic-only under temporal control (0.48 vs 0.29).</li>
+      <li><b>The source of the gain is genetic distance</b>, which CLIB proxies perfectly at this scale — not CLIB's codon-accessibility mechanism.</li>
+      <li><b>Real CDS = modal codons</b> here (identical result), because the signal is count-dominated.</li>
+      <li>Consistent with the broader finding: CLIB's mechanistic signal is specific to SARS-CoV-2 single mutants; for multi-mutation / cross-species, count and semantic lead.</li>
+    </ul>
+  </section>
+
+  <p class="foot">Complete pairwise CAC on the Smith-2004 H3N2 antigenic map (273 strains, HI-titer distance) · ESM2-650M ·
+    scripts/phaseB13_pairwise_cac.py · real CDS: 15 GenBank H3N2 HA · temporal-controlled (partial | year, within-year)</p>
+</div>
