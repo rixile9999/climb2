@@ -1,0 +1,173 @@
+<title>다중변이 모델 검증 — 상세</title>
+<style>
+  :root{
+    --bg:#F6F7F5;--surface:#FFFFFF;--surface-2:#EFF2EF;--ink:#14201C;--muted:#54655D;
+    --faint:#889690;--line:#DEE4E0;--accent:#126646;--accent-soft:#E4F0EA;
+    --d1:#B26A2E;--d2:#3F6FB0;--d3:#146B4A;--warn:#B2542E;--warn-soft:#F4E4DB;--good:#1F7A57;
+    --serif:"Charter","Iowan Old Style","Iowan Old Style W01",Georgia,"Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0C1310;--surface:#131C18;--surface-2:#1A2420;--ink:#E8EEEA;--muted:#9BACA3;
+    --faint:#6B7C74;--line:#26332E;--accent:#54C193;--accent-soft:#13221B;--d1:#D69152;--d2:#6E9FD9;--d3:#54C193;--warn:#D6875A;--warn-soft:#2A1D16;--good:#3FA277;}}
+  :root[data-theme="dark"]{--bg:#0C1310;--surface:#131C18;--surface-2:#1A2420;--ink:#E8EEEA;--muted:#9BACA3;--faint:#6B7C74;--line:#26332E;--accent:#54C193;--accent-soft:#13221B;--d1:#D69152;--d2:#6E9FD9;--d3:#54C193;--warn:#D6875A;--warn-soft:#2A1D16;--good:#3FA277;}
+  :root[data-theme="light"]{--bg:#F6F7F5;--surface:#FFFFFF;--surface-2:#EFF2EF;--ink:#14201C;--muted:#54655D;--faint:#889690;--line:#DEE4E0;--accent:#126646;--accent-soft:#E4F0EA;--d1:#B26A2E;--d2:#3F6FB0;--d3:#146B4A;--warn:#B2542E;--warn-soft:#F4E4DB;--good:#1F7A57;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.66;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:880px;margin:0 auto;padding:clamp(28px,5vw,64px) clamp(18px,5vw,38px)}
+  .col{max-width:64ch}
+  h1{font-size:clamp(1.8rem,4.6vw,2.6rem);line-height:1.16;letter-spacing:-.01em;text-wrap:balance;margin:.1em 0 .25em;font-weight:600}
+  h2{font-size:clamp(1.25rem,2.8vw,1.6rem);margin:2.2em 0 .5em;font-weight:600}
+  h3{font-size:1.02rem;margin:1.2em 0 .3em;font-weight:600}
+  p{margin:.7em 0}
+  .lede{font-size:1.18rem;color:var(--muted);max-width:62ch}
+  .sans{font-family:var(--sans)} .mono{font-family:var(--mono)}
+  code{font-family:var(--mono);font-size:.85em;background:var(--surface-2);padding:.06em .32em;border-radius:4px}
+  .meta{display:flex;flex-wrap:wrap;gap:.5em 1.3em;margin-top:1.3em;font-family:var(--sans);font-size:.8rem;color:var(--faint)}
+  .meta b{color:var(--ink);font-weight:600}
+  .rule{height:1px;background:var(--line);border:0;margin:1.8em 0}
+  .eq{font-family:var(--mono);background:var(--surface-2);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;margin:1em 0;font-size:.9rem;line-height:1.8;overflow-x:auto}
+  b.sem{color:var(--d3)} b.cl{color:var(--d2)}
+  .ds{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:1.3em 0;border-left:4px solid var(--dc,var(--accent))}
+  .ds .num{font-family:var(--sans);font-weight:800;font-size:.8rem;color:var(--dc);letter-spacing:.04em}
+  .ds h3{margin:.1em 0 .3em;font-size:1.15rem}
+  .ds .role{font-family:var(--sans);font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);font-weight:600}
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-family:var(--sans);font-size:.88rem;margin:.7em 0}
+  .kv dt{color:var(--muted)} .kv dd{margin:0;color:var(--ink)}
+  .res{background:var(--surface-2);border-radius:8px;padding:9px 13px;margin:.6em 0 .2em;font-size:.92rem}
+  .res b{color:var(--dc)}
+  .warnbox{background:var(--warn-soft);border:1px solid var(--warn);border-radius:8px;padding:9px 13px;margin:.5em 0;font-size:.88rem}
+  .twrap{overflow-x:auto;margin:1.1em 0;border:1px solid var(--line);border-radius:10px}
+  table{border-collapse:collapse;width:100%;font-family:var(--sans);font-size:.85rem}
+  th,td{padding:9px 12px;text-align:right;font-variant-numeric:tabular-nums;border-bottom:1px solid var(--line);white-space:nowrap}
+  th{background:var(--surface-2);font-weight:600;font-size:.7rem;letter-spacing:.03em;color:var(--muted);text-transform:uppercase}
+  td:first-child,th:first-child{text-align:left}
+  tbody tr:last-child td{border-bottom:0}
+  td.hi{color:var(--good);font-weight:700}
+  .bars{margin:.8em 0}
+  .brow{display:grid;grid-template-columns:150px 1fr 52px;gap:10px;align-items:center;margin:6px 0;font-family:var(--sans);font-size:.82rem}
+  .brow .t{text-align:right;color:var(--ink)}
+  .track{background:var(--surface-2);border-radius:5px;height:20px;overflow:hidden}
+  .fill{height:100%;border-radius:5px;background:var(--d3)}
+  .fill.mut{background:var(--faint)}
+  .brow .v{font-variant-numeric:tabular-nums;color:var(--muted)}
+  .callout{background:var(--accent-soft);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:1.4em 0}
+  .callout .eyebrow{display:block;font-family:var(--sans);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:.3em}
+  ul{padding-left:1.2em}li{margin:.35em 0}
+  .foot{margin-top:2.4em;padding-top:1.2em;border-top:1px solid var(--line);font-family:var(--sans);font-size:.78rem;color:var(--faint)}
+</style>
+
+<div class="wrap">
+  <header class="col">
+    <span class="sans" style="font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600">CLIMB · point→multi 검증 상세</span>
+    <h1>다중변이 모델을 어떻게 검증했나</h1>
+    <p class="lede">단일변이(point)에서 다중변이(multi)로의 확장을 세 데이터셋으로 검증했다 —
+      메커니즘(t-손잡이), escape 예측, 그리고 시간교란을 통제한 항원거리. 각 단계의 ground truth·방법·결과·한계를 상세히.</p>
+    <div class="meta">
+      <span><b>대상</b> Influenza HA (다중변이)</span>
+      <span><b>백본</b> ESM2-650M</span>
+      <span><b>검증 데이터셋</b> 3</span>
+    </div>
+  </header>
+
+  <hr class="rule">
+
+  <section class="col">
+    <h2>0. 무엇을 검증하나 — 다중변이 스코어의 정의</h2>
+    <p>변이 집합 <code>M(v) = {(i, aᵢ)}</code>에 대해 세 신호를 계산한다:</p>
+    <div class="eq col" style="max-width:none">
+      <b class="sem">semantic</b> = ‖ e(v) − e(x_wt) ‖₁ &nbsp;&nbsp;(다중변이 전장 서열 임베딩)<br>
+      grammar = Σ<sub>M</sub> log P(aᵢ │ x_wt, mask i)<br>
+      <b class="cl">CLIB(t)</b> = Σ<sub>M</sub> log P(cᵢ → aᵢ, t) &nbsp;&nbsp;(t = point↔multi 손잡이)
+    </div>
+    <p>검증 질문은 둘이다 — <b>(A)</b> 큰 t가 다중변이 regime에 맞나(메커니즘)? <b>(B)</b> 다중변이 신호가 실제 escape를 예측하나?</p>
+  </section>
+
+  <!-- Dataset 1 -->
+  <div class="ds col" style="--dc:var(--d1);max-width:none">
+    <div class="num">데이터셋 1 · 메커니즘 (A)</div>
+    <h3>Wu2020 — HA site-B 조합 fitness</h3>
+    <div class="role">t-손잡이 검증</div>
+    <dl class="kv">
+      <dt>ground truth</dt><dd>측정된 조합 fitness (preference, 연속값)</dd>
+      <dt>구성</dt><dd>HA 6부위(H3: 156·158·159·190·193·196) 조합 치환, 6개 H3 균주 × 576 = <b>3,456 다중변이</b></dd>
+      <dt>변이 차수</dt><dd>각 변이체가 strain WT 대비 0~6개 위치 치환</dd>
+      <dt>방법</dt><dd>다중-CLIB(t)를 t 스윕하며 fitness와 Spearman; 부호 지도적합 CAC</dd>
+    </dl>
+    <div class="res"><b>결과:</b> 다중-CLIB↔fitness 상관이 t와 함께 증가 — 아래.</div>
+    <div class="bars">
+      <div class="brow"><span class="t">t=0.01 (단일염기)</span><div class="track"><div class="fill mut" style="width:41%"></div></div><span class="v">+0.206</span></div>
+      <div class="brow"><span class="t">t=1.0</span><div class="track"><div class="fill" style="width:57%"></div></div><span class="v">+0.286</span></div>
+      <div class="brow"><span class="t">t=10 (다중치환)</span><div class="track"><div class="fill" style="width:66%"></div></div><span class="v">+0.329</span></div>
+    </div>
+    <p class="sans" style="font-size:.86rem;color:var(--muted);margin:.4em 0 0">부호 지도적합 CAC(5-fold OOF) +0.447 (등가중 상쇄 +0.254 대비). semantic이 지배(−0.459), CLIB은 양수·소폭.</p>
+    <div class="warnbox">한계: Wu2020은 escape가 아니라 <b>fitness</b>. 메커니즘(t)은 검증하나 escape 예측은 아님 → 데이터셋 2·3.</div>
+  </div>
+
+  <!-- Dataset 2 -->
+  <div class="ds col" style="--dc:var(--d2);max-width:none">
+    <div class="num">데이터셋 2 · escape 예측 (B)</div>
+    <h3>H3N2 항원 클러스터 — 다중변이 escape</h3>
+    <div class="role">실제 escape ground truth</div>
+    <dl class="kv">
+      <dt>ground truth</dt><dd>두 균주가 다른 <b>항원 클러스터</b>인가(Smith-2004, 14개 HK68…SW13, 연도 기반)</dd>
+      <dt>구성</dt><dd>실제 H3N2 HA 균주 34,836 중 라벨 30,271 → 클러스터당 ~40 균형 subsample = <b>555 균주</b> (각 균주 = 자연 다중변이체)</dd>
+      <dt>방법</dt><dd>다중변이 semantic(임베딩 L1) → 클러스터 차이 예측 AUROC</dd>
+    </dl>
+    <div class="res"><b>결과:</b> AUROC(semantic → 다른 클러스터) = <b>0.769</b> (단일변이 DMS escape 0.60~0.64 대비 크게↑). 클러스터 순서 gap↑ → semantic 단조 증가(6.4→14.4).</div>
+    <div class="warnbox"><b>결정적 한계:</b> 항원 클러스터는 <b>시간순</b>이라 신호 상당부가 시간적 발산과 얽힘(semantic~year 0.83). "항원성" 자체를 잰 건지 "시간이 지났음"을 잰 건지 불분명 → 데이터셋 3에서 통제.</div>
+  </div>
+
+  <!-- Dataset 3 -->
+  <div class="ds col" style="--dc:var(--d3);max-width:none">
+    <div class="num">데이터셋 3 · 시간교란 통제</div>
+    <h3>HI titer 항원지도 — Smith 2004</h3>
+    <div class="role">항원거리 (연속) · 시간 통제</div>
+    <dl class="kv">
+      <dt>ground truth</dt><dd><b>항원거리</b> = 항원지도 2D 좌표의 유클리드 거리 (항원단위 ≈ 2배 HI 희석). HI titer(273 antigens × 79 sera)로 구축</dd>
+      <dt>출처</dt><dd>Racmacs <code>h3map2004</code> (좌표+서열+HI), 273 균주, 1968–2003</dd>
+      <dt>방법</dt><dd>ESM2 임베딩 → 쌍별 semantic; 항원거리·연도거리와 3중 통제 상관</dd>
+    </dl>
+    <h3 class="sans" style="font-size:.9rem;color:var(--muted)">시간교란을 걷어내는 3단계</h3>
+    <div class="bars">
+      <div class="brow"><span class="t">원상관 (전 쌍)</span><div class="track"><div class="fill mut" style="width:79%"></div></div><span class="v">+0.788</span></div>
+      <div class="brow"><span class="t">부분상관 (│연도 통제)</span><div class="track"><div class="fill" style="width:29%"></div></div><span class="v">+0.289</span></div>
+      <div class="brow"><span class="t">동일-연도밴드 (Δyr=0)</span><div class="track"><div class="fill" style="width:51%"></div></div><span class="v">+0.508</span></div>
+    </div>
+    <div class="res"><b>결과:</b> 원상관 0.788은 대부분 시간(semantic~year 0.83, antigenic~year 0.84). 하지만 <b>연도를 통제해도</b> 부분상관 +0.289, 그리고 <b>같은 해 균주끼리(n=2,749)도 semantic이 항원거리 예측 +0.508</b>. |Δyr|≤2 +0.575, ≤5 +0.520.</div>
+    <div class="callout" style="margin:.8em 0 0">
+      <span class="eyebrow">해소</span>
+      시간 드리프트가 불가능한 조건(동일 연도)에서도 ρ≈0.5 → 다중변이 semantic의 항원 예측은 <b>시간의 부산물이 아니라 실제 항원 신호</b>. B11의 핵심 caveat가 통제됐다.
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <section class="col">
+    <h2>검증 요약</h2>
+  </section>
+  <div class="twrap col" style="max-width:none">
+    <table>
+      <thead><tr><th>데이터셋</th><th style="text-align:left">ground truth</th><th class="n">규모</th><th style="text-align:left">검증 · 결과</th></tr></thead>
+      <tbody>
+        <tr><td>Wu2020 조합 fitness</td><td style="text-align:left">조합 fitness</td><td class="n">3,456</td><td style="text-align:left">t-손잡이 ✓ (0.21→0.33)</td></tr>
+        <tr><td>H3N2 항원 클러스터</td><td style="text-align:left">클러스터 차이(escape)</td><td class="n">555</td><td style="text-align:left">escape 예측 ✓ (0.769) — 단 시간교란</td></tr>
+        <tr><td>HI titer 항원지도</td><td style="text-align:left">항원거리(HI)</td><td class="n">273</td><td style="text-align:left"><b class="hi">시간 통제 후에도 ✓</b> (동일연도 0.508)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <section class="col">
+    <h2>종합</h2>
+    <ul>
+      <li><b>메커니즘:</b> 큰 t가 다중변이 regime에 맞음(Wu2020).</li>
+      <li><b>escape:</b> 다중변이 semantic이 항원 escape 예측(H3N2 클러스터 0.77).</li>
+      <li><b>정직성:</b> 그 예측이 시간 발산이 아님 — HI 항원거리로 시간 통제 후에도 유지(동일연도 0.51).</li>
+      <li><b>남은 한계:</b> CLIB의 균주쌍 확장(정렬+codon)은 미완; semantic이 주 신호, CLIB 기여는 소폭.</li>
+    </ul>
+  </section>
+
+  <p class="foot">다중변이 검증 3종 · Wu2020 (fitness) · H3N2 항원 클러스터 (escape) · Smith-2004 HI 항원지도 (시간 통제) ·
+    ESM2-650M · scripts/phaseB10·B11·B12 · 데이터 Racmacs h3map2004</p>
+</div>
