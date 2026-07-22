@@ -8,7 +8,6 @@ covfit_bench/data/wt_single_mutants.fasta
 covfit_bench/results/covfit_singlemut/
 covfit_bench/logs/
 .qwen/
-*.pdf
 
 # LaTeX build artifacts (manuscript/)
 manuscript/**/*.aux
@@ -22,6 +21,3 @@ manuscript/**/*.run.xml
 manuscript/**/*.blg
 manuscript/**/*.synctex*
 
-# keep manuscript PDFs (figures + compiled) despite global *.pdf ignore
-!manuscript/**/*.pdf
-!manuscript/*.pdf
