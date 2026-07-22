@@ -104,3 +104,9 @@ B12의 semantic-단독을 완성 CAC로 보강. Smith-2004 항원지도 273균�
 - **완성 CAC가 semantic 단독을 넘음**: 부분상관(연도 통제) **+0.481 vs 0.289**, 동일연도 +0.547 vs 0.508.
 - **정직한 해석 — CLIB ≈ Hamming(상관 0.9989)**: 이득은 CLIB의 코돈-접근성 메커니즘이 아니라 **차이 변이 개수(유전적 거리)**에서 옴. CAC[sem+Hamming] ≈ CAC[sem+CLIB](부분 0.483 vs 0.481). CLIB이 t에 무관(0.1~100 동일)한 것도 이를 뒷받침 — 균주쌍(수십 변이) 규모에선 미세 접근성이 씻겨나감.
 - **결론:** 완성 CAC는 항원거리 예측에서 semantic 단독을 유의하게 개선하나, 그 개선은 **genetic distance** 기여이며 CLIB의 SARS 단일변이 escape에서의 메커니즘 신호와는 성격이 다르다.
+
+## B13b — 실제 CDS vs modal 코돈 비교 (균주쌍 CLIB)
+요청: 코돈 근사 이후 실제 CDS로도 진행·비교. GenBank에서 실제 H3N2 HA CDS 15개 확보 → 아미노산별 경험적 modal 코돈 추출(실제 H3 HA는 AT-편향: E=GAA·K=AAA 등, **14/20 아미노산이 generic과 다름**).
+- **corr(CLIB_generic, CLIB_real) = 1.00000**; CAC[sem+CLIB] 부분상관·동일연도 소수 4자리까지 동일(0.4806/0.5473).
+- **결론:** 균주쌍 CLIB이 count-지배(≈Hamming)라 **코돈 선택은 결과에 무관** — 코돈 근사가 완전히 정당. (SARS 단일변이 escape에서 codon이 중요했던 것과 대조: 그건 단일 위치라 코돈 미세구조가 살아있었음.)
+데이터: `data/species/h3_real_cds_15strains.fa`, `h3_real_aa_codons.tsv`.
