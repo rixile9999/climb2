@@ -1,0 +1,157 @@
+<title>논문의 대화상대 — Related-Work Positioning</title>
+<style>
+  :root{
+    --bg:#F6F7F5;--surface:#FFFFFF;--surface-2:#EFF2EF;--ink:#14201C;--muted:#54655D;
+    --faint:#889690;--line:#DEE4E0;--accent:#126646;--accent-soft:#E4F0EA;
+    --base:#5B6B64;--threat:#B2542E;--near:#B26A2E;--comp:#3F6FB0;--target:#146B4A;--prec:#5B4B8A;
+    --threat-soft:#F4E4DB;
+    --serif:"Charter","Iowan Old Style","Iowan Old Style W01",Georgia,"Times New Roman",serif;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){:root{
+    --bg:#0C1310;--surface:#131C18;--surface-2:#1A2420;--ink:#E8EEEA;--muted:#9BACA3;
+    --faint:#6B7C74;--line:#26332E;--accent:#54C193;--accent-soft:#13221B;
+    --base:#93A69D;--threat:#D6875A;--near:#D69152;--comp:#6E9FD9;--target:#54C193;--prec:#A99AD6;--threat-soft:#2A1D16;}}
+  :root[data-theme="dark"]{--bg:#0C1310;--surface:#131C18;--surface-2:#1A2420;--ink:#E8EEEA;--muted:#9BACA3;--faint:#6B7C74;--line:#26332E;--accent:#54C193;--accent-soft:#13221B;--base:#93A69D;--threat:#D6875A;--near:#D69152;--comp:#6E9FD9;--target:#54C193;--prec:#A99AD6;--threat-soft:#2A1D16;}
+  :root[data-theme="light"]{--bg:#F6F7F5;--surface:#FFFFFF;--surface-2:#EFF2EF;--ink:#14201C;--muted:#54655D;--faint:#889690;--line:#DEE4E0;--accent:#126646;--accent-soft:#E4F0EA;--base:#5B6B64;--threat:#B2542E;--near:#B26A2E;--comp:#3F6FB0;--target:#146B4A;--prec:#5B4B8A;--threat-soft:#F4E4DB;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.62;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:900px;margin:0 auto;padding:clamp(28px,5vw,64px) clamp(18px,5vw,38px)}
+  .col{max-width:64ch}
+  h1{font-size:clamp(1.8rem,4.6vw,2.6rem);line-height:1.15;letter-spacing:-.01em;text-wrap:balance;margin:.1em 0 .25em;font-weight:600}
+  h2{font-size:clamp(1.15rem,2.6vw,1.4rem);margin:2em 0 .5em;font-weight:600}
+  p{margin:.65em 0}
+  .lede{font-size:1.16rem;color:var(--muted);max-width:60ch}
+  .sans{font-family:var(--sans)} .mono{font-family:var(--mono);font-size:.85em}
+  .meta{display:flex;flex-wrap:wrap;gap:.5em 1.3em;margin-top:1.3em;font-family:var(--sans);font-size:.8rem;color:var(--faint)}
+  .meta b{color:var(--ink);font-weight:600}
+  .rule{height:1px;background:var(--line);border:0;margin:1.7em 0}
+  .hook{background:var(--threat-soft);border:1px solid var(--threat);border-radius:14px;padding:20px 22px;margin:1.4em 0}
+  .hook .k{font-family:var(--sans);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--threat);font-weight:700;margin-bottom:.3em}
+  .hook .arrow{color:var(--accent);font-weight:700}
+  .cards{display:grid;grid-template-columns:1fr;gap:12px;margin:1.2em 0}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:15px 18px;border-left:4px solid var(--rc,var(--accent))}
+  .card .role{font-family:var(--sans);font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rc)}
+  .card h3{margin:.15em 0 .1em;font-size:1.05rem;font-weight:600}
+  .card .cite{font-family:var(--sans);font-size:.78rem;color:var(--faint)}
+  .card p{margin:.4em 0 0;font-size:.92rem}
+  .card .diff{font-family:var(--sans);font-size:.86rem;margin-top:.4em}
+  .card .diff b{color:var(--rc)}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--line)}
+  a:hover{border-color:var(--accent)}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 14px;font-family:var(--sans);font-size:.76rem;color:var(--muted);margin:.8em 0}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:11px;height:11px;border-radius:3px}
+  .jrnl{background:var(--accent-soft);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:1.3em 0}
+  .jrnl .k{font-family:var(--sans);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:.3em;display:block}
+  ol{padding-left:1.3em}li{margin:.3em 0}
+  .foot{margin-top:2.4em;padding-top:1.2em;border-top:1px solid var(--line);font-family:var(--sans);font-size:.78rem;color:var(--faint)}
+</style>
+
+<div class="wrap">
+  <header class="col">
+    <span class="sans" style="font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600">CLIMB paper · related-work positioning</span>
+    <h1>논문의 대화상대</h1>
+    <p class="lede">라벨-프리 self-calibration 결과로 원고를 강화할 때, 반드시 인용·차별화해야 하는 선행연구 지도.
+      우리 논문이 뛰어드는 논쟁과 경쟁자, 그리고 그것이 저널 선택에 주는 함의.</p>
+    <div class="meta">
+      <span><b>우리 novelty</b> 계통수-fitness로 PLM 가중치를 라벨 없이 고정</span>
+      <span><b>프레임</b> mutation supply × selection filter</span>
+      <span><b>검증</b> deep-research · 8 findings (high, 3-vote)</span>
+    </div>
+  </header>
+
+  <hr class="rule">
+
+  <div class="hook col" style="max-width:none">
+    <div class="k">🎯 우리가 답하는 논쟁 (킬러 훅)</div>
+    <p style="margin:.2em 0"><b>Allman/Johnson et al., <i>J. R. Soc. Interface</i> (2025)</b>가 zero-shot CSCS(Hie)는 SARS-CoV-2 escape에서 <b>작동하지 않는다</b>고 체계적으로 반박 — "semantic change가 escape/non-escape를 구분 못함", 지도학습 fine-tuning으로 대체 권고.</p>
+    <p style="margin:.4em 0 0"><span class="arrow">→ 우리 응답:</span> <b>라벨 없이 codon-accessibility 보정으로 PLM escape 신호를 되살린다.</b> 원고의 가장 시의적·강력한 프레이밍.</p>
+  </div>
+
+  <section class="col">
+    <h2>관련연구 지도</h2>
+    <div class="legend">
+      <span><i class="dot" style="background:var(--base)"></i>베이스라인</span>
+      <span><i class="dot" style="background:var(--threat)"></i>위협</span>
+      <span><i class="dot" style="background:var(--near)"></i>최근접 선행</span>
+      <span><i class="dot" style="background:var(--comp)"></i>직접 경쟁자</span>
+      <span><i class="dot" style="background:var(--target)"></i>타깃 원천</span>
+      <span><i class="dot" style="background:var(--prec)"></i>이론 전례</span>
+    </div>
+  </section>
+
+  <div class="cards col" style="max-width:none">
+    <div class="card" style="--rc:var(--base)">
+      <div class="role">베이스라인</div>
+      <h3>CSCS — the language of viral escape</h3>
+      <div class="cite">Hie et al., <i>Science</i> 2021 · <a href="https://www.science.org/doi/10.1126/science.abd7331">abd7331</a></div>
+      <p>Zero-shot semantic change + grammaticality, Spike escape AUC 0.85.</p>
+      <div class="diff"><b>관계:</b> 우리가 보정·개선하는 원조 점수.</div>
+    </div>
+    <div class="card" style="--rc:var(--threat)">
+      <div class="role">위협 (핵심)</div>
+      <h3>Zero-shot CSCS는 실패한다</h3>
+      <div class="cite">Allman/Johnson et al., <i>J. R. Soc. Interface</i> 2025 · <a href="https://royalsocietypublishing.org/rsif/article/22/225/20240598/235909/A-systematic-evaluation-of-the-language-of-viral">20240598</a></div>
+      <p>semantic change가 escape를 구분 못함, 개념적 결함(ACE2 결합도 똑같이 파괴), 지도학습 권고.</p>
+      <div class="diff"><b>대응:</b> 라벨 없이 신호 복원 — 이 논문의 존재 이유.</div>
+    </div>
+    <div class="card" style="--rc:var(--base)">
+      <div class="role">강한 PLM 베이스라인</div>
+      <h3>무수정 ESM-2도 진화궤적을 담는다</h3>
+      <div class="cite">Lamb et al., <i>Nat. Commun.</i> 2026 · <a href="https://www.nature.com/articles/s41467-026-69569-9">s41467-026-69569-9</a></div>
+      <p>단일서열 ESM-2 표현이 변이 진화사·VOC 출현을 포착.</p>
+      <div class="diff"><b>관계:</b> 인용·비교해 우리 보정의 부가가치를 보여야.</div>
+    </div>
+    <div class="card" style="--rc:var(--near)">
+      <div class="role">최근접 선행</div>
+      <h3>EVEscape — constraint × 물리 접근성</h3>
+      <div class="cite">Thadani et al., <i>Nature</i> 2023 · <a href="https://www.nature.com/articles/s41586-023-06617-0">s41586-023-06617-0</a></div>
+      <p>학습 constraint(EVE) × 독립 물리 prior(구조 WCN) × 화학 비유사도, 라벨 없이 DMS 예측.</p>
+      <div class="diff"><b>차별점:</b> 그들 prior는 <b>구조/생물물리</b>, 우리는 <b>codon-transition Markov(유전형 수준)</b>.</div>
+    </div>
+    <div class="card" style="--rc:var(--comp)">
+      <div class="role">직접 경쟁자</div>
+      <h3>CoVFit — PLM × 진화 fitness (지도)</h3>
+      <div class="cite">Ito et al., <i>Nat. Commun.</i> 2025 · <a href="https://www.nature.com/articles/s41467-025-59422-w">s41467-025-59422-w</a></div>
+      <p>ESM-2를 Re(감시 빈도)+DMS로 fine-tune, 미래변이 예측 Spearman 0.862.</p>
+      <div class="diff"><b>차별점:</b> 그들은 <b>강한 지도학습</b>, 우리는 <b>라벨-프리·post-hoc·codon prior 동결</b>.</div>
+    </div>
+    <div class="card" style="--rc:var(--target)">
+      <div class="role">타깃 원천</div>
+      <h3>계통수 fitness (관측/기대)</h3>
+      <div class="cite">Bloom &amp; Neher, <i>Virus Evolution</i> 2023 · <a href="https://academic.oup.com/ve/article/9/2/vead055/7265011">vead055</a></div>
+      <p>Δf = ln((n_act+P)/(n_exp+P)), 4-fold 축약위치 중립 스펙트럼 기대치; spike DMS와 r=0.66.</p>
+      <div class="diff"><b>관계:</b> 우리 라벨-프리 타깃의 원천 — <b>DMS와 독립</b>.</div>
+    </div>
+    <div class="card" style="--rc:var(--comp)">
+      <div class="role">차별 대상</div>
+      <h3>PyR0 — 빈도 기반 fitness 추론</h3>
+      <div class="cite">Obermeyer et al., <i>Science</i> 2022 · <a href="https://www.science.org/doi/10.1126/science.abm1208">abm1208</a></div>
+      <p>계층 베이지안 multinomial logistic로 per-mutation fitness를 빈도만으로 추론.</p>
+      <div class="diff"><b>차별점:</b> 그들은 fitness <b>추론</b>, 우리는 그 신호로 <b>PLM을 보정</b>.</div>
+    </div>
+    <div class="card" style="--rc:var(--prec)">
+      <div class="role">이론 전례</div>
+      <h3>codon mutation-selection 모형</h3>
+      <div class="cite">Rodrigue et al., <i>PNAS</i> 2010 · <a href="https://www.pnas.org/doi/10.1073/pnas.0910915107">0910915107</a></div>
+      <p>치환율 = 돌연변이 공급 × 선택 고정확률 — 뉴클레오타이드 과정과 아미노산 선택의 분리.</p>
+      <div class="diff"><b>관계:</b> "supply × filter" 물리 프레이밍의 population-genetic 전례.</div>
+    </div>
+  </div>
+
+  <div class="jrnl col" style="max-width:none">
+    <span class="k">저널 함의</span>
+    <p style="margin:.2em 0">논쟁(Allman)·최근접(EVEscape·CoVFit)·타깃원천(Bloom-Neher)·차별대상(PyR0)이 <b>전부 Nature/Science/생물-진화 저널</b>에. 물리저널의 PLM/viral-evo 전례는 미발견.</p>
+    <ol style="margin:.5em 0 0">
+      <li><b>근본적 최적 — eLife / Nature Communications</b>: 전문 리뷰어·경쟁자·데이터 출처가 그곳; "2025년 실패 판정 난 label-free PLM escape를 되살린다"가 가장 세게 먹힘.</li>
+      <li><b>Virus Evolution</b>: Bloom-Neher 홈, 정확한 주제이나 청중 좁음.</li>
+      <li><b>PRX Life</b>: 물리 정체성 유지 옵션.</li>
+      <li><b>PRL</b>: 고임팩트 도박(청중 불일치).</li>
+    </ol>
+  </div>
+
+  <p class="foot">Related-work positioning for the CLIMB / label-free CAC manuscript · deep-research (102 agents, 8 verified findings, 3-vote adversarial) ·
+    GitHub issue rixile9999/climb2 #3 · branch research/climb-labelfree</p>
+</div>
