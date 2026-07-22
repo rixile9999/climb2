@@ -9,3 +9,19 @@ covfit_bench/results/covfit_singlemut/
 covfit_bench/logs/
 .qwen/
 *.pdf
+
+# LaTeX build artifacts (manuscript/)
+manuscript/**/*.aux
+manuscript/**/*.log
+manuscript/**/*.bbl
+manuscript/**/*.bcf
+manuscript/**/*.fls
+manuscript/**/*.fdb_latexmk
+manuscript/**/*.out
+manuscript/**/*.run.xml
+manuscript/**/*.blg
+manuscript/**/*.synctex*
+
+# keep manuscript PDFs (figures + compiled) despite global *.pdf ignore
+!manuscript/**/*.pdf
+!manuscript/*.pdf
