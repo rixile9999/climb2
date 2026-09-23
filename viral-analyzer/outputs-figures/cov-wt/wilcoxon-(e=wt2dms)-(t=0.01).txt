@@ -1,0 +1,24 @@
+Wilcoxon test results for escape: SARS-CoV-2-WildType>DMS
+
+Result: SARS-CoV-2-WildType-Random, T: 0.01
+Wilcoxon statistics, one-sided (W): 3.0
+p-value: 9.5367431640625e-06
+
+Result: SARS-CoV-2-WildType-Hie, T: 0.01
+Wilcoxon statistics, one-sided (W): 27.0
+p-value: 0.002288818359375
+
+Result: SARS-CoV-2-WildType-ESM-150M-Cos, T: 0.01
+Wilcoxon statistics, one-sided (W): 7.0
+p-value: 3.62396240234375e-05
+
+Result: SARS-CoV-2-WildType-ESM-650M-Cos, T: 0.01
+Wilcoxon statistics, one-sided (W): 13.0
+p-value: 0.0001678466796875
+
+Result: SARS-CoV-2-WildType-ESM-3B-Cos, T: 0.01
+Wilcoxon statistics, one-sided (W): 15.0
+p-value: 0.0002613067626953125
+
+==================================================
+

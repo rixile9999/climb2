@@ -1,0 +1,35 @@
+Escape: SARS-CoV-2-WildType>DMS
+Strain: SARS-CoV-2-WildType
+Evolutionary Time Parameter (T): 0.01
+
+==================================================
+
+Model-Output Dataset: SARS-CoV-2-WildType-Random
+CSCS:
+    Mean: 11498.47 / Std: 7260.51 / Min: 1162.00 / Q1: 6170.50 / Median: 10411.00 / Q3: 16273.00 / Max: 23559.00 / AUC: 0.5246
+CAC:
+    Mean: 2752.95 / Std: 1893.28 / Min: 155.00 / Q1: 1476.00 / Median: 2009.00 / Q3: 3492.50 / Max: 6933.00 / AUC: 0.8862
+
+Model-Output Dataset: SARS-CoV-2-WildType-Hie
+CSCS:
+    Mean: 3757.16 / Std: 2573.64 / Min: 122.00 / Q1: 1041.00 / Median: 3700.00 / Q3: 5905.50 / Max: 7815.00 / AUC: 0.8447
+CAC:
+    Mean: 2103.95 / Std: 1499.40 / Min: 104.00 / Q1: 678.00 / Median: 2095.00 / Q3: 2999.00 / Max: 5154.00 / AUC: 0.9130
+
+Model-Output Dataset: SARS-CoV-2-WildType-ESM-150M-Cos
+CSCS:
+    Mean: 9387.26 / Std: 6127.43 / Min: 505.00 / Q1: 3524.00 / Median: 8693.00 / Q3: 14325.00 / Max: 21831.00 / AUC: 0.6119
+CAC:
+    Mean: 2741.89 / Std: 1821.07 / Min: 331.00 / Q1: 1551.00 / Median: 1993.00 / Q3: 3589.50 / Max: 6924.00 / AUC: 0.8866
+
+Model-Output Dataset: SARS-CoV-2-WildType-ESM-650M-Cos
+CSCS:
+    Mean: 8562.32 / Std: 6869.83 / Min: 884.00 / Q1: 2848.00 / Median: 7177.00 / Q3: 11168.00 / Max: 23692.00 / AUC: 0.6460
+CAC:
+    Mean: 2761.84 / Std: 1871.94 / Min: 74.00 / Q1: 1505.00 / Median: 2136.00 / Q3: 3560.50 / Max: 7090.00 / AUC: 0.8858
+
+Model-Output Dataset: SARS-CoV-2-WildType-ESM-3B-Cos
+CSCS:
+    Mean: 9130.00 / Std: 6500.32 / Min: 1591.00 / Q1: 3600.00 / Median: 6308.00 / Q3: 13531.50 / Max: 21096.00 / AUC: 0.6225
+CAC:
+    Mean: 2770.37 / Std: 1829.51 / Min: 312.00 / Q1: 1477.50 / Median: 2184.00 / Q3: 3567.50 / Max: 7034.00 / AUC: 0.8855

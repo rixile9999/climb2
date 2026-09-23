@@ -21,3 +21,9 @@ manuscript/**/*.run.xml
 manuscript/**/*.blg
 manuscript/**/*.synctex*
 
+.vscode/
+
+# Per-mutation score dumps: ~1.5 GB, regenerable with `main.py --scores`.
+# The *-stat.txt summaries and *-metadata.json rank distributions beside them
+# are kept, and those are what the manuscript's tables are computed from.
+viral-analyzer/outputs/**/*.csv

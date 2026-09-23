@@ -1,0 +1,40 @@
+Virus: SARS-CoV-2
+Strain: SARS-CoV-2-WildType
+Escape Mutants: SARS-CoV-2-WildType>Actual
+Result File: SARS-CoV-2-WildType-Random
+
+--------------------------------------------------------------------------------
+
+Standard CSCS
+Mean Rank: 11997.44 ± 1092.73
+Std Rank: 6804.32 ± 565.52
+
+--------------------------------------------------------------------------------
+
+T = 0.01
+Mean Rank: 3578.35 ± 109.76
+Std Rank: 3099.34 ± 166.36
+
+T = 0.033
+Mean Rank: 3648.79 ± 94.95
+Std Rank: 3184.46 ± 143.80
+
+T = 0.1
+Mean Rank: 3853.75 ± 85.15
+Std Rank: 3358.33 ± 134.21
+
+T = 0.33
+Mean Rank: 4504.95 ± 89.24
+Std Rank: 3854.76 ± 133.70
+
+T = 1.0
+Mean Rank: 6280.82 ± 120.91
+Std Rank: 4924.41 ± 186.64
+
+T = 3.3
+Mean Rank: 9701.99 ± 352.27
+Std Rank: 5478.60 ± 542.46
+
+T = 10.0
+Mean Rank: 11300.74 ± 946.56
+Std Rank: 6802.80 ± 568.48

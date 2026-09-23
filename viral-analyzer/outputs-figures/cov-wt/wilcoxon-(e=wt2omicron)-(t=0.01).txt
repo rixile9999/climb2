@@ -1,0 +1,24 @@
+Wilcoxon test results for escape: SARS-CoV-2-WildType>Omicron
+
+Result: SARS-CoV-2-WildType-Random, T: 0.01
+Wilcoxon statistics, one-sided (W): 6.0
+p-value: 1.30385160446167e-08
+
+Result: SARS-CoV-2-WildType-Hie, T: 0.01
+Wilcoxon statistics, one-sided (W): 6.0
+p-value: 1.30385160446167e-08
+
+Result: SARS-CoV-2-WildType-ESM-150M-Cos, T: 0.01
+Wilcoxon statistics, one-sided (W): 12.0
+p-value: 6.51925802230835e-08
+
+Result: SARS-CoV-2-WildType-ESM-650M-Cos, T: 0.01
+Wilcoxon statistics, one-sided (W): 19.0
+p-value: 2.859160304069519e-07
+
+Result: SARS-CoV-2-WildType-ESM-3B-Cos, T: 0.01
+Wilcoxon statistics, one-sided (W): 35.0
+p-value: 3.997236490249634e-06
+
+==================================================
+

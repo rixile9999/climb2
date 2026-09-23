@@ -1,0 +1,41 @@
+{
+    "escape": "SARS-CoV-2-WildType>Gamma",
+    "result": "SARS-CoV-2-WildType-ESM-650M-Cos",
+    "virus": "SARS-CoV-2",
+    "strain": "SARS-CoV-2-WildType",
+    "times": [
+        0.01,
+        0.033,
+        0.1,
+        0.33,
+        1.0,
+        3.3,
+        10.0
+    ],
+    "distributions": {
+        "cscs": [
+            16925
+        ],
+        "t=0.01": [
+            2577
+        ],
+        "t=0.033": [
+            2579
+        ],
+        "t=0.1": [
+            2517
+        ],
+        "t=0.33": [
+            2766
+        ],
+        "t=1.0": [
+            5379
+        ],
+        "t=3.3": [
+            13649
+        ],
+        "t=10.0": [
+            13629
+        ]
+    }
+}
