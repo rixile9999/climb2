@@ -20,7 +20,7 @@ import argparse
 # Map model size to embedding file paths
 MODEL_NAME_MAP = {
     "150M": "data/embedded-seqs/cov-wt-embed-150M.npz",
-    "650M": "data/embedded-seqs/cov-wt-embed-150M.npz",
+    "650M": "data/embedded-seqs/cov-wt-embed-650M.npz",
     "3B": "data/embedded-seqs/cov-wt-embed-3B.npz",
 }
 
